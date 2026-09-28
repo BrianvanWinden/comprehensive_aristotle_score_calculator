@@ -44,6 +44,14 @@ button.secondary{background:#fff;color:#0f3057}
 .hint{font-size:12.5px;color:#62788f;margin:0 0 10px}
 footer{padding:16px 24px 30px;font-size:12px;color:#5a6b7d;max-width:1200px;margin:0 auto}
 .none-note{font-size:13px;color:#62788f;font-style:italic}
+#proc-search {
+  width: 100%;
+  margin-bottom: .5rem;
+  padding: .5rem .75rem;
+  font: inherit;
+  border: 1px solid #ccc;
+  border-radius: .5rem;
+}
 </style>
 </head>
 <body>
@@ -54,9 +62,20 @@ footer{padding:16px 24px 30px;font-size:12px;color:#5a6b7d;max-width:1200px;marg
 <main>
   <form id="form" onsubmit="return false">
     <section class="card">
+      <!-- <h2>1 · Primary procedure (Table B2)</h2>
+      <select id="proc" aria-label="Primary procedure"></select>
+      <div id="proc-info" class="info"></div> -->
+
       <h2>1 · Primary procedure (Table B2)</h2>
+      <input id="proc-search" type="text" list="proc-list"
+             placeholder="Type to search, e.g. “atrial”…”
+             autocomplete="off" spellcheck="false"
+             aria-label="Search primary procedure">
+      <datalist id="proc-list"></datalist>
       <select id="proc" aria-label="Primary procedure"></select>
       <div id="proc-info" class="info"></div>
+
+
     </section>
 
     <section class="card" id="sec-specific" hidden>
@@ -102,152 +121,152 @@ footer{padding:16px 24px 30px;font-size:12px;color:#5a6b7d;max-width:1200px;marg
 "use strict";
 /* Table B2: [no, name, mortality, morbidity, difficulty]. Total = sum of last three (verified against the paper). */
 const B2R=[
-[1,"PFO, Primary closure",1.0,1.0,1.0],
-[2,"ASD repair, Primary closure",1.0,1.0,1.0],
-[3,"ASD repair, Patch",1.0,1.0,1.0],
-[4,"ASD, Common atrium (Single atrium), Septation",1.0,1.0,1.8],
-[5,"ASD creation/enlargement",1.0,2.0,1.0],
-[6,"ASD partial closure",1.0,1.0,1.0],
-[7,"Atrial septal fenestration",2.0,2.0,1.0],
-[8,"VSD repair, Primary closure",2.0,2.0,2.0],
-[9,"VSD repair, Patch",2.0,2.0,2.0],
-[10,"VSD, Multiple, Repair",3.0,2.5,3.5],
-[11,"VSD creation/enlargement",3.0,3.0,3.0],
-[12,"Ventricular septal fenestration",3.0,2.0,2.5],
-[13,"AVC (AVSD) repair, Complete (CAVSD)",3.0,3.0,3.0],
-[14,"AVC (AVSD) repair, Intermediate (transitional)",1.5,1.5,2.0],
-[15,"AVC (AVSD) repair, Partial (incomplete) (PAVSD)",1.0,1.0,2.0],
-[16,"AP window repair",2.0,2.0,2.0],
-[17,"Pulmonary artery origin from ascending aorta (hemitruncus) repair",3.0,3.0,3.0],
-[18,"Truncus arteriosus repair",4.0,3.0,4.0],
-[19,"Valvuloplasty, Truncal valve",2.0,2.0,3.0],
-[20,"Valve replacement, Truncal valve",2.0,2.0,2.0],
-[21,"PAPVC repair",2.0,1.0,2.0],
-[22,"PAPVC, Scimitar, Repair",3.0,2.0,3.0],
-[23,"TAPVC repair",3.0,3.0,3.0],
-[24,"Cor triatriatum repair",2.0,2.0,2.8],
-[25,"Pulmonary venous stenosis repair",4.0,4.0,4.0],
-[26,"Atrial baffle procedure (non-Mustard, non-Senning)",2.8,2.0,3.0],
-[27,"Anomalous systemic venous connection repair",2.0,2.0,3.0],
-[28,"Systemic venous stenosis repair",3.0,2.0,3.0],
-[29,"TOF repair, No ventriculotomy",3.0,2.0,3.0],
-[30,"TOF repair, Ventriculotomy, Non-transanular patch",2.5,2.0,3.0],
-[31,"TOF repair, Ventriculotomy, Transanular patch",3.0,2.0,3.0],
-[32,"TOF repair, RV-PA conduit",3.0,2.0,3.0],
-[33,"TOF—AVC (AVSD) repair",4.0,3.0,4.0],
-[34,"TOF—Absent pulmonary valve repair",3.0,3.0,3.3],
-[35,"Pulmonary atresia—VSD (including TOF, PA) repair",3.0,3.0,3.0],
-[36,"Pulmonary atresia—VSD—MAPCA (pseudotruncus) repair",4.0,3.0,4.0],
-[37,"Unifocalization MAPCA (s)",4.0,3.0,4.0],
-[38,"Occlusion MAPCA (s)",2.0,2.0,3.0],
-[39,"Valvuloplasty, Tricuspid",2.0,2.0,3.0],
-[40,"Valve replacement, Tricuspid (TVR)",2.5,2.0,3.0],
-[41,"Valve closure, Tricuspid (exclusion, univentricular)",4.0,3.0,2.0],
-[42,"Valve excision, Tricuspid (no replacement)",3.0,3.0,1.0],
-[43,"RVOT procedure",2.0,2.0,2.5],
-[44,"1 1/2 ventricular repair",3.0,3.0,3.0],
-[45,"PA reconstruction (plasty), Main (trunk)",2.0,2.0,2.0],
-[46,"PA reconstruction (plasty), Branch, Central",2.8,2.0,3.0],
-[47,"PA reconstruction (plasty), Branch, Peripheral",2.8,2.0,3.0],
-[48,"DCRV repair",2.0,2.0,3.0],
-[49,"Conduit reoperation",3.0,2.0,3.0],
-[50,"Valvuloplasty, Pulmonic",1.8,1.8,2.0],
-[51,"Valve replacement, Pulmonic (PVR)",2.0,2.0,2.5],
-[52,"Conduit placement, RV to PA",2.5,2.0,3.0],
-[53,"Conduit placement, LV to PA",3.0,2.0,3.0],
-[54,"Valvuloplasty, Aortic",3.0,2.0,3.0],
-[55,"Valve replacement, Aortic (AVR), Mechanical",2.0,2.0,3.0],
-[56,"Valve replacement, Aortic (AVR), Bioprosthetic",2.0,2.0,3.0],
-[57,"Valve replacement, Aortic (AVR), Homograft",3.0,2.0,3.5],
-[58,"Aortic root replacement",2.5,2.0,3.5],
-[59,"Aortic root replacement, Mechanical",3.3,2.0,3.5],
-[60,"Aortic root replacement, Homograft",3.5,2.0,4.0],
-[61,"Ross procedure",4.0,2.3,4.0],
-[62,"Konno procedure",4.0,3.0,4.0],
-[63,"Ross–Konno procedure",4.5,3.0,5.0],
-[64,"Aortic stenosis, Subvalvar, Repair",2.0,1.8,2.5],
-[65,"Aortic stenosis, Supravalvar, Repair",2.5,2.0,3.0],
-[66,"Sinus of Valsalva, Aneurysm repair",2.5,2.0,3.0],
-[67,"LV to aorta tunnel repair",3.0,2.3,3.0],
-[68,"Valvuloplasty, Mitral",3.0,2.0,3.0],
-[69,"Mitral stenosis, Supravalvar mitral ring repair",3.0,2.0,3.0],
-[70,"Valve replacement, Mitral (MVR)",2.5,2.0,3.0],
-[71,"Norwood procedure",5.0,4.5,5.0],
-[72,"HLHS biventricular repair",5.0,5.0,5.0],
-[73,"Transplant, Heart",3.0,3.3,3.0],
-[74,"Transplant, Heart and lung(s)",4.0,5.0,4.3],
-[75,"Partial left ventriculectomy (LV volume reduction) (Batista)",4.0,4.0,4.0],
-[76,"Pericardial drainage procedure",1.0,1.0,1.0],
-[77,"Pericardiectomy",2.0,2.0,2.0],
-[78,"Fontan, Atrio-pulmonary connection",3.0,3.0,3.0],
-[79,"Fontan, Atrio-ventricular connection",3.0,3.0,3.0],
-[80,"Fontan, TCPC, Lateral tunnel, Fenestrated",3.0,3.0,3.0],
-[81,"Fontan, TCPC, Lateral tunnel, Non-fenestrated",3.0,3.0,3.0],
-[82,"Fontan, TCPC, External conduit, Fenestrated",3.0,3.0,3.0],
-[83,"Fontan, TCPC, External conduit, Non-fenestrated",3.0,3.0,3.0],
-[84,"Congenitally corrected TGA, Double switch (atrial switch + ASO)",5.0,3.8,5.0],
-[85,"Congenitally corrected TGA, Atrial switch and Rastelli",4.0,3.0,4.0],
-[86,"Congenitally corrected TGA, VSD closure",3.0,3.0,3.0],
-[87,"Congenitally corrected TGA, VSD closure and LV to PA conduit",4.0,3.0,4.0],
-[88,"Arterial switch operation (ASO)",3.5,3.0,3.5],
-[89,"Arterial switch operation (ASO) and VSD repair",4.0,3.0,4.0],
-[90,"Senning",3.0,2.5,3.0],
-[91,"Mustard",3.0,3.0,3.0],
-[92,"Rastelli",3.0,3.0,4.0],
-[93,"REV",4.0,3.0,4.0],
-[94,"DORV, Intraventricular tunnel repair",3.3,3.0,4.0],
-[95,"DOLV repair",4.0,3.0,4.0],
-[96,"Anomalous origin of coronary artery from pulmonary artery repair",3.0,3.0,4.0],
-[97,"Coronary artery fistula ligation",1.0,2.0,1.0],
-[98,"Coronary artery bypass",2.5,2.0,3.0],
-[99,"Coarctation repair, End to end",2.0,2.0,2.0],
-[100,"Coarctation repair, End to end, Extended",3.0,2.0,3.0],
-[101,"Coarctation repair, Subclavian flap",2.0,2.0,2.0],
-[102,"Coarctation repair, Patch aortoplasty",2.0,2.0,2.0],
-[103,"Coarctation repair, Interposition graft",2.8,2.0,3.0],
-[104,"Aortic arch repair",2.0,2.0,3.0],
-[105,"Interrupted aortic arch repair",3.8,3.0,4.0],
-[106,"PDA closure, Surgical",1.0,1.0,1.0],
-[107,"Vascular ring repair",2.0,2.0,2.0],
-[108,"Pulmonary artery sling repair",3.0,3.0,3.0],
-[109,"Aortic aneurysm repair",3.0,2.8,3.0],
-[110,"Aortic dissection repair",4.0,3.0,4.0],
-[111,"Lung biopsy",1.5,2.0,1.5],
-[112,"Transplant, Lung(s)",4.0,4.0,4.0],
-[113,"Pectus repair",2.0,1.0,2.3],
-[114,"Pacemaker implantation, Permanent",1.0,1.0,1.0],
-[115,"Pacemaker procedure",1.0,1.0,1.0],
-[116,"ICD (AICD) implantation",1.5,1.0,1.5],
-[117,"ICD (AICD) procedure",1.5,1.0,1.5],
-[118,"Arrhythmia surgery — atrial, Surgical ablation",3.0,2.0,3.0],
-[119,"Shunt, Systemic to pulmonary, Modified Blalock-Taussig (MBTS)",2.0,2.0,2.3],
-[120,"Shunt, Systemic to pulmonary, Central (aorta or main PA)",2.0,2.0,2.8],
-[121,"Shunt, Ligation and takedown",1.5,1.0,1.0],
-[122,"PA banding (PAB)",2.0,2.0,2.0],
-[123,"PA debanding",2.0,2.0,2.0],
-[124,"Damus–Kaye–Stansel (DKS), AP anastomosis without arch reconstruction",3.0,3.0,3.5],
-[125,"Bidirectional cavopulmonary anastomosis (bidirectional Glenn)",2.3,2.0,2.5],
-[126,"Glenn (unidirectional cavopulmonary anastomosis)",2.5,2.0,2.5],
-[127,"Bilateral bidirectional cavopulmonary anastomosis (BBDCPA)",2.5,2.0,3.0],
-[128,"Hemifontan",3.0,2.0,3.0],
-[129,"Aneurysm, Ventricular, Right, Repair",3.0,2.0,3.0],
-[130,"Aneurysm, Ventricular, Left, Repair",3.0,2.5,3.5],
-[131,"Aneurysm, Pulmonary artery, Repair",3.0,2.0,3.0],
-[132,"Cardiac tumor resection",3.0,2.0,3.0],
-[133,"Ligation, Pulmonary artery",1.5,2.0,1.5],
-[134,"Pulmonary embolectomy",3.0,3.0,2.0],
-[135,"Pleural drainage procedure",0.5,0.5,0.5],
-[136,"Ligation, Thoracic duct",1.0,2.0,1.0],
-[137,"Decortication",1.0,1.0,3.0],
-[138,"Intra-aortic balloon pump (IABP) insertion",0.5,1.0,0.5],
-[139,"ECMO procedure",2.0,3.0,1.0],
-[140,"Right/left heart assist device procedure",2.0,3.0,2.0],
-[141,"Bronchoscopy",0.5,0.5,0.5],
-[142,"Diaphragm plication",1.0,2.0,1.0],
-[143,"Delayed sternal closure",0.5,0.5,0.5],
-[144,"Mediastinal exploration",0.5,0.5,0.5],
-[145,"Sternotomy wound drainage",0.5,0.5,0.5]
-];
+  [1,"PFO, Primary closure",1.0,1.0,1.0],
+  [2,"ASD repair, Primary closure",1.0,1.0,1.0],
+  [3,"ASD repair, Patch",1.0,1.0,1.0],
+  [4,"ASD, Common atrium (Single atrium), Septation",1.0,1.0,1.8],
+  [5,"ASD creation/enlargement",1.0,2.0,1.0],
+  [6,"ASD partial closure",1.0,1.0,1.0],
+  [7,"Atrial septal fenestration",2.0,2.0,1.0],
+  [8,"VSD repair, Primary closure",2.0,2.0,2.0],
+  [9,"VSD repair, Patch",2.0,2.0,2.0],
+  [10,"VSD, Multiple, Repair",3.0,2.5,3.5],
+  [11,"VSD creation/enlargement",3.0,3.0,3.0],
+  [12,"Ventricular septal fenestration",3.0,2.0,2.5],
+  [13,"AVC (AVSD) repair, Complete (CAVSD)",3.0,3.0,3.0],
+  [14,"AVC (AVSD) repair, Intermediate (transitional)",1.5,1.5,2.0],
+  [15,"AVC (AVSD) repair, Partial (incomplete) (PAVSD)",1.0,1.0,2.0],
+  [16,"AP window repair",2.0,2.0,2.0],
+  [17,"Pulmonary artery origin from ascending aorta (hemitruncus) repair",3.0,3.0,3.0],
+  [18,"Truncus arteriosus repair",4.0,3.0,4.0],
+  [19,"Valvuloplasty, Truncal valve",2.0,2.0,3.0],
+  [20,"Valve replacement, Truncal valve",2.0,2.0,2.0],
+  [21,"PAPVC repair",2.0,1.0,2.0],
+  [22,"PAPVC, Scimitar, Repair",3.0,2.0,3.0],
+  [23,"TAPVC repair",3.0,3.0,3.0],
+  [24,"Cor triatriatum repair",2.0,2.0,2.8],
+  [25,"Pulmonary venous stenosis repair",4.0,4.0,4.0],
+  [26,"Atrial baffle procedure (non-Mustard, non-Senning)",2.8,2.0,3.0],
+  [27,"Anomalous systemic venous connection repair",2.0,2.0,3.0],
+  [28,"Systemic venous stenosis repair",3.0,2.0,3.0],
+  [29,"TOF repair, No ventriculotomy",3.0,2.0,3.0],
+  [30,"TOF repair, Ventriculotomy, Non-transanular patch",2.5,2.0,3.0],
+  [31,"TOF repair, Ventriculotomy, Transanular patch",3.0,2.0,3.0],
+  [32,"TOF repair, RV-PA conduit",3.0,2.0,3.0],
+  [33,"TOF—AVC (AVSD) repair",4.0,3.0,4.0],
+  [34,"TOF—Absent pulmonary valve repair",3.0,3.0,3.3],
+  [35,"Pulmonary atresia—VSD (including TOF, PA) repair",3.0,3.0,3.0],
+  [36,"Pulmonary atresia—VSD—MAPCA (pseudotruncus) repair",4.0,3.0,4.0],
+  [37,"Unifocalization MAPCA (s)",4.0,3.0,4.0],
+  [38,"Occlusion MAPCA (s)",2.0,2.0,3.0],
+  [39,"Valvuloplasty, Tricuspid",2.0,2.0,3.0],
+  [40,"Valve replacement, Tricuspid (TVR)",2.5,2.0,3.0],
+  [41,"Valve closure, Tricuspid (exclusion, univentricular)",4.0,3.0,2.0],
+  [42,"Valve excision, Tricuspid (no replacement)",3.0,3.0,1.0],
+  [43,"RVOT procedure",2.0,2.0,2.5],
+  [44,"1 1/2 ventricular repair",3.0,3.0,3.0],
+  [45,"PA reconstruction (plasty), Main (trunk)",2.0,2.0,2.0],
+  [46,"PA reconstruction (plasty), Branch, Central",2.8,2.0,3.0],
+  [47,"PA reconstruction (plasty), Branch, Peripheral",2.8,2.0,3.0],
+  [48,"DCRV repair",2.0,2.0,3.0],
+  [49,"Conduit reoperation",3.0,2.0,3.0],
+  [50,"Valvuloplasty, Pulmonic",1.8,1.8,2.0],
+  [51,"Valve replacement, Pulmonic (PVR)",2.0,2.0,2.5],
+  [52,"Conduit placement, RV to PA",2.5,2.0,3.0],
+  [53,"Conduit placement, LV to PA",3.0,2.0,3.0],
+  [54,"Valvuloplasty, Aortic",3.0,2.0,3.0],
+  [55,"Valve replacement, Aortic (AVR), Mechanical",2.0,2.0,3.0],
+  [56,"Valve replacement, Aortic (AVR), Bioprosthetic",2.0,2.0,3.0],
+  [57,"Valve replacement, Aortic (AVR), Homograft",3.0,2.0,3.5],
+  [58,"Aortic root replacement",2.5,2.0,3.5],
+  [59,"Aortic root replacement, Mechanical",3.3,2.0,3.5],
+  [60,"Aortic root replacement, Homograft",3.5,2.0,4.0],
+  [61,"Ross procedure",4.0,2.3,4.0],
+  [62,"Konno procedure",4.0,3.0,4.0],
+  [63,"Ross–Konno procedure",4.5,3.0,5.0],
+  [64,"Aortic stenosis, Subvalvar, Repair",2.0,1.8,2.5],
+  [65,"Aortic stenosis, Supravalvar, Repair",2.5,2.0,3.0],
+  [66,"Sinus of Valsalva, Aneurysm repair",2.5,2.0,3.0],
+  [67,"LV to aorta tunnel repair",3.0,2.3,3.0],
+  [68,"Valvuloplasty, Mitral",3.0,2.0,3.0],
+  [69,"Mitral stenosis, Supravalvar mitral ring repair",3.0,2.0,3.0],
+  [70,"Valve replacement, Mitral (MVR)",2.5,2.0,3.0],
+  [71,"Norwood procedure",5.0,4.5,5.0],
+  [72,"HLHS biventricular repair",5.0,5.0,5.0],
+  [73,"Transplant, Heart",3.0,3.3,3.0],
+  [74,"Transplant, Heart and lung(s)",4.0,5.0,4.3],
+  [75,"Partial left ventriculectomy (LV volume reduction) (Batista)",4.0,4.0,4.0],
+  [76,"Pericardial drainage procedure",1.0,1.0,1.0],
+  [77,"Pericardiectomy",2.0,2.0,2.0],
+  [78,"Fontan, Atrio-pulmonary connection",3.0,3.0,3.0],
+  [79,"Fontan, Atrio-ventricular connection",3.0,3.0,3.0],
+  [80,"Fontan, TCPC, Lateral tunnel, Fenestrated",3.0,3.0,3.0],
+  [81,"Fontan, TCPC, Lateral tunnel, Non-fenestrated",3.0,3.0,3.0],
+  [82,"Fontan, TCPC, External conduit, Fenestrated",3.0,3.0,3.0],
+  [83,"Fontan, TCPC, External conduit, Non-fenestrated",3.0,3.0,3.0],
+  [84,"Congenitally corrected TGA, Double switch (atrial switch + ASO)",5.0,3.8,5.0],
+  [85,"Congenitally corrected TGA, Atrial switch and Rastelli",4.0,3.0,4.0],
+  [86,"Congenitally corrected TGA, VSD closure",3.0,3.0,3.0],
+  [87,"Congenitally corrected TGA, VSD closure and LV to PA conduit",4.0,3.0,4.0],
+  [88,"Arterial switch operation (ASO)",3.5,3.0,3.5],
+  [89,"Arterial switch operation (ASO) and VSD repair",4.0,3.0,4.0],
+  [90,"Senning",3.0,2.5,3.0],
+  [91,"Mustard",3.0,3.0,3.0],
+  [92,"Rastelli",3.0,3.0,4.0],
+  [93,"REV",4.0,3.0,4.0],
+  [94,"DORV, Intraventricular tunnel repair",3.3,3.0,4.0],
+  [95,"DOLV repair",4.0,3.0,4.0],
+  [96,"Anomalous origin of coronary artery from pulmonary artery repair",3.0,3.0,4.0],
+  [97,"Coronary artery fistula ligation",1.0,2.0,1.0],
+  [98,"Coronary artery bypass",2.5,2.0,3.0],
+  [99,"Coarctation repair, End to end",2.0,2.0,2.0],
+  [100,"Coarctation repair, End to end, Extended",3.0,2.0,3.0],
+  [101,"Coarctation repair, Subclavian flap",2.0,2.0,2.0],
+  [102,"Coarctation repair, Patch aortoplasty",2.0,2.0,2.0],
+  [103,"Coarctation repair, Interposition graft",2.8,2.0,3.0],
+  [104,"Aortic arch repair",2.0,2.0,3.0],
+  [105,"Interrupted aortic arch repair",3.8,3.0,4.0],
+  [106,"PDA closure, Surgical",1.0,1.0,1.0],
+  [107,"Vascular ring repair",2.0,2.0,2.0],
+  [108,"Pulmonary artery sling repair",3.0,3.0,3.0],
+  [109,"Aortic aneurysm repair",3.0,2.8,3.0],
+  [110,"Aortic dissection repair",4.0,3.0,4.0],
+  [111,"Lung biopsy",1.5,2.0,1.5],
+  [112,"Transplant, Lung(s)",4.0,4.0,4.0],
+  [113,"Pectus repair",2.0,1.0,2.3],
+  [114,"Pacemaker implantation, Permanent",1.0,1.0,1.0],
+  [115,"Pacemaker procedure",1.0,1.0,1.0],
+  [116,"ICD (AICD) implantation",1.5,1.0,1.5],
+  [117,"ICD (AICD) procedure",1.5,1.0,1.5],
+  [118,"Arrhythmia surgery — atrial, Surgical ablation",3.0,2.0,3.0],
+  [119,"Shunt, Systemic to pulmonary, Modified Blalock-Taussig (MBTS)",2.0,2.0,2.3],
+  [120,"Shunt, Systemic to pulmonary, Central (aorta or main PA)",2.0,2.0,2.8],
+  [121,"Shunt, Ligation and takedown",1.5,1.0,1.0],
+  [122,"PA banding (PAB)",2.0,2.0,2.0],
+  [123,"PA debanding",2.0,2.0,2.0],
+  [124,"Damus–Kaye–Stansel (DKS), AP anastomosis without arch reconstruction",3.0,3.0,3.5],
+  [125,"Bidirectional cavopulmonary anastomosis (bidirectional Glenn)",2.3,2.0,2.5],
+  [126,"Glenn (unidirectional cavopulmonary anastomosis)",2.5,2.0,2.5],
+  [127,"Bilateral bidirectional cavopulmonary anastomosis (BBDCPA)",2.5,2.0,3.0],
+  [128,"Hemifontan",3.0,2.0,3.0],
+  [129,"Aneurysm, Ventricular, Right, Repair",3.0,2.0,3.0],
+  [130,"Aneurysm, Ventricular, Left, Repair",3.0,2.5,3.5],
+  [131,"Aneurysm, Pulmonary artery, Repair",3.0,2.0,3.0],
+  [132,"Cardiac tumor resection",3.0,2.0,3.0],
+  [133,"Ligation, Pulmonary artery",1.5,2.0,1.5],
+  [134,"Pulmonary embolectomy",3.0,3.0,2.0],
+  [135,"Pleural drainage procedure",0.5,0.5,0.5],
+  [136,"Ligation, Thoracic duct",1.0,2.0,1.0],
+  [137,"Decortication",1.0,1.0,3.0],
+  [138,"Intra-aortic balloon pump (IABP) insertion",0.5,1.0,0.5],
+  [139,"ECMO procedure",2.0,3.0,1.0],
+  [140,"Right/left heart assist device procedure",2.0,3.0,2.0],
+  [141,"Bronchoscopy",0.5,0.5,0.5],
+  [142,"Diaphragm plication",1.0,2.0,1.0],
+  [143,"Delayed sternal closure",0.5,0.5,0.5],
+  [144,"Mediastinal exploration",0.5,0.5,0.5],
+  [145,"Sternotomy wound drainage",0.5,0.5,0.5]
+  ];
 /* Table B3: procedure-specific modifiers keyed by primary procedure number.
    mods = anatomical/associated checkboxes (m=mortality, mb=morbidity, d=difficulty).
    age  = age rule (threshold reconstructed from clinical logic — see note in chat).
@@ -429,6 +448,33 @@ B2R.forEach(r=>{
   o.value=r[0]; o.textContent=r[0]+"  ·  "+r[1]; proc.appendChild(o);
 });
 proc.value="88"; // sensible default (ASO)
+
+/* Change #1: searchable Table B2 procedure picker */
+(function () {
+  const sel  = document.getElementById("proc");
+  const inp  = document.getElementById("proc-search");
+  const list = document.getElementById("proc-list");
+
+  // Suggest from the same source as the <select>
+  for (const o of sel.options) {
+    if (o.value === "") continue;            // skip the empty placeholder option
+    const d = document.createElement("option");
+    d.value = o.textContent;
+    list.appendChild(d);
+  }
+
+  // User picks a suggestion → mirror it into the <select> and
+  // fire "change" so your existing handler recomputes the score.
+  inp.addEventListener("change", () => {
+    const hit = [...sel.options].find(o => o.textContent === inp.value);
+    if (hit) {
+      sel.value = hit.value;
+      sel.dispatchEvent(new Event("change"));
+    }
+  });
+})();
+
+
 
 function chipEl(dataAttr,val,label){
   const lab=document.createElement("label"); lab.className="chip";
