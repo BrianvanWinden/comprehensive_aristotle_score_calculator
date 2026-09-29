@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="style/style.css">   <!-- your existing styles -->
-  <link rel="stylesheet" href="style/dropdown.css"> <!-- the dropdown -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Comprehensive Aristotle Score Calculator</title>
-  <style></style>
+  <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="style/dropdown.css">
 </head>
 <body>
 <header>
@@ -16,24 +15,13 @@
 <main>
   <form id="form" onsubmit="return false">
     <section class="card">
-      <!-- <h2>1 · Primary procedure (Table B2)</h2>
-      <select id="proc" aria-label="Primary procedure"></select>
-      <div id="proc-info" class="info"></div> -->
-
       <h2>1 · Primary procedure (Table B2)</h2>
-      <input id="proc-search" type="text" list="proc-list"
-             placeholder="Type to search, e.g. “asd”…”
-             autocomplete="off" spellcheck="false"
-             aria-label="Search primary procedure">
-      <datalist id="proc-list"></datalist>
-      <select id="proc" style="display:none;" aria-hidden="true"></select>  
-      <!-- aria-label="Primary procedure" -->
+      <div id="proc-dd"></div>
       <div id="proc-info" class="info"></div>
-
-
     </section>
 
-    <section class="card" id="sec-specific" hidden>
+    <section class="card" id="sec-specific" >
+    <!-- <section class="card" id="sec-specific" hidden> -->
       <h2>2 · Procedure-specific factors (Table B3)</h2>
       <div id="specifics"></div>
     </section>
@@ -44,10 +32,6 @@
       <div id="b4body"></div>
     </section>
 
-    <div class="row-btns">
-      <button type="button" id="btn-reset">Reset</button>
-      <button type="button" class="secondary" id="btn-copy">Copy summary</button>
-    </div>
   </form>
 
   <aside>
@@ -65,6 +49,10 @@
       <h2>How it works</h2>
       <p class="hint" style="margin:0">Comprehensive = <b>Basic score</b> of the primary procedure (mortality + morbidity + difficulty, Table&nbsp;B2) + <b>procedure-specific factors</b> (Table&nbsp;B3, when published) + <b>patient factors</b> (Table&nbsp;B4).</p>
     </div>
+    <div class="row-btns">
+      <button type="button" id="btn-reset">Reset</button>
+      <button type="button" class="secondary" id="btn-copy">Copy summary</button>
+    </div>
   </aside>
 </main>
 <footer>
@@ -74,303 +62,178 @@
 </footer>
 <script>
 "use strict";
-/* Table B2: [no, name, mortality, morbidity, difficulty]. Total = sum of last three (verified against the paper). */
-const B2R=[
-  [1,"PFO, Primary closure",1.0,1.0,1.0],
-  [2,"ASD repair, Primary closure",1.0,1.0,1.0],
-  [3,"ASD repair, Patch",1.0,1.0,1.0],
-  [4,"ASD, Common atrium (Single atrium), Septation",1.0,1.0,1.8],
-  [5,"ASD creation/enlargement",1.0,2.0,1.0],
-  [6,"ASD partial closure",1.0,1.0,1.0],
-  [7,"Atrial septal fenestration",2.0,2.0,1.0],
-  [8,"VSD repair, Primary closure",2.0,2.0,2.0],
-  [9,"VSD repair, Patch",2.0,2.0,2.0],
-  [10,"VSD, Multiple, Repair",3.0,2.5,3.5],
-  [11,"VSD creation/enlargement",3.0,3.0,3.0],
-  [12,"Ventricular septal fenestration",3.0,2.0,2.5],
-  [13,"AVC (AVSD) repair, Complete (CAVSD)",3.0,3.0,3.0],
-  [14,"AVC (AVSD) repair, Intermediate (transitional)",1.5,1.5,2.0],
-  [15,"AVC (AVSD) repair, Partial (incomplete) (PAVSD)",1.0,1.0,2.0],
-  [16,"AP window repair",2.0,2.0,2.0],
-  [17,"Pulmonary artery origin from ascending aorta (hemitruncus) repair",3.0,3.0,3.0],
-  [18,"Truncus arteriosus repair",4.0,3.0,4.0],
-  [19,"Valvuloplasty, Truncal valve",2.0,2.0,3.0],
-  [20,"Valve replacement, Truncal valve",2.0,2.0,2.0],
-  [21,"PAPVC repair",2.0,1.0,2.0],
-  [22,"PAPVC, Scimitar, Repair",3.0,2.0,3.0],
-  [23,"TAPVC repair",3.0,3.0,3.0],
-  [24,"Cor triatriatum repair",2.0,2.0,2.8],
-  [25,"Pulmonary venous stenosis repair",4.0,4.0,4.0],
-  [26,"Atrial baffle procedure (non-Mustard, non-Senning)",2.8,2.0,3.0],
-  [27,"Anomalous systemic venous connection repair",2.0,2.0,3.0],
-  [28,"Systemic venous stenosis repair",3.0,2.0,3.0],
-  [29,"TOF repair, No ventriculotomy",3.0,2.0,3.0],
-  [30,"TOF repair, Ventriculotomy, Non-transanular patch",2.5,2.0,3.0],
-  [31,"TOF repair, Ventriculotomy, Transanular patch",3.0,2.0,3.0],
-  [32,"TOF repair, RV-PA conduit",3.0,2.0,3.0],
-  [33,"TOF—AVC (AVSD) repair",4.0,3.0,4.0],
-  [34,"TOF—Absent pulmonary valve repair",3.0,3.0,3.3],
-  [35,"Pulmonary atresia—VSD (including TOF, PA) repair",3.0,3.0,3.0],
-  [36,"Pulmonary atresia—VSD—MAPCA (pseudotruncus) repair",4.0,3.0,4.0],
-  [37,"Unifocalization MAPCA (s)",4.0,3.0,4.0],
-  [38,"Occlusion MAPCA (s)",2.0,2.0,3.0],
-  [39,"Valvuloplasty, Tricuspid",2.0,2.0,3.0],
-  [40,"Valve replacement, Tricuspid (TVR)",2.5,2.0,3.0],
-  [41,"Valve closure, Tricuspid (exclusion, univentricular)",4.0,3.0,2.0],
-  [42,"Valve excision, Tricuspid (no replacement)",3.0,3.0,1.0],
-  [43,"RVOT procedure",2.0,2.0,2.5],
-  [44,"1 1/2 ventricular repair",3.0,3.0,3.0],
-  [45,"PA reconstruction (plasty), Main (trunk)",2.0,2.0,2.0],
-  [46,"PA reconstruction (plasty), Branch, Central",2.8,2.0,3.0],
-  [47,"PA reconstruction (plasty), Branch, Peripheral",2.8,2.0,3.0],
-  [48,"DCRV repair",2.0,2.0,3.0],
-  [49,"Conduit reoperation",3.0,2.0,3.0],
-  [50,"Valvuloplasty, Pulmonic",1.8,1.8,2.0],
-  [51,"Valve replacement, Pulmonic (PVR)",2.0,2.0,2.5],
-  [52,"Conduit placement, RV to PA",2.5,2.0,3.0],
-  [53,"Conduit placement, LV to PA",3.0,2.0,3.0],
-  [54,"Valvuloplasty, Aortic",3.0,2.0,3.0],
-  [55,"Valve replacement, Aortic (AVR), Mechanical",2.0,2.0,3.0],
-  [56,"Valve replacement, Aortic (AVR), Bioprosthetic",2.0,2.0,3.0],
-  [57,"Valve replacement, Aortic (AVR), Homograft",3.0,2.0,3.5],
-  [58,"Aortic root replacement",2.5,2.0,3.5],
-  [59,"Aortic root replacement, Mechanical",3.3,2.0,3.5],
-  [60,"Aortic root replacement, Homograft",3.5,2.0,4.0],
-  [61,"Ross procedure",4.0,2.3,4.0],
-  [62,"Konno procedure",4.0,3.0,4.0],
-  [63,"Ross–Konno procedure",4.5,3.0,5.0],
-  [64,"Aortic stenosis, Subvalvar, Repair",2.0,1.8,2.5],
-  [65,"Aortic stenosis, Supravalvar, Repair",2.5,2.0,3.0],
-  [66,"Sinus of Valsalva, Aneurysm repair",2.5,2.0,3.0],
-  [67,"LV to aorta tunnel repair",3.0,2.3,3.0],
-  [68,"Valvuloplasty, Mitral",3.0,2.0,3.0],
-  [69,"Mitral stenosis, Supravalvar mitral ring repair",3.0,2.0,3.0],
-  [70,"Valve replacement, Mitral (MVR)",2.5,2.0,3.0],
-  [71,"Norwood procedure",5.0,4.5,5.0],
-  [72,"HLHS biventricular repair",5.0,5.0,5.0],
-  [73,"Transplant, Heart",3.0,3.3,3.0],
-  [74,"Transplant, Heart and lung(s)",4.0,5.0,4.3],
-  [75,"Partial left ventriculectomy (LV volume reduction) (Batista)",4.0,4.0,4.0],
-  [76,"Pericardial drainage procedure",1.0,1.0,1.0],
-  [77,"Pericardiectomy",2.0,2.0,2.0],
-  [78,"Fontan, Atrio-pulmonary connection",3.0,3.0,3.0],
-  [79,"Fontan, Atrio-ventricular connection",3.0,3.0,3.0],
-  [80,"Fontan, TCPC, Lateral tunnel, Fenestrated",3.0,3.0,3.0],
-  [81,"Fontan, TCPC, Lateral tunnel, Non-fenestrated",3.0,3.0,3.0],
-  [82,"Fontan, TCPC, External conduit, Fenestrated",3.0,3.0,3.0],
-  [83,"Fontan, TCPC, External conduit, Non-fenestrated",3.0,3.0,3.0],
-  [84,"Congenitally corrected TGA, Double switch (atrial switch + ASO)",5.0,3.8,5.0],
-  [85,"Congenitally corrected TGA, Atrial switch and Rastelli",4.0,3.0,4.0],
-  [86,"Congenitally corrected TGA, VSD closure",3.0,3.0,3.0],
-  [87,"Congenitally corrected TGA, VSD closure and LV to PA conduit",4.0,3.0,4.0],
-  [88,"Arterial switch operation (ASO)",3.5,3.0,3.5],
-  [89,"Arterial switch operation (ASO) and VSD repair",4.0,3.0,4.0],
-  [90,"Senning",3.0,2.5,3.0],
-  [91,"Mustard",3.0,3.0,3.0],
-  [92,"Rastelli",3.0,3.0,4.0],
-  [93,"REV",4.0,3.0,4.0],
-  [94,"DORV, Intraventricular tunnel repair",3.3,3.0,4.0],
-  [95,"DOLV repair",4.0,3.0,4.0],
-  [96,"Anomalous origin of coronary artery from pulmonary artery repair",3.0,3.0,4.0],
-  [97,"Coronary artery fistula ligation",1.0,2.0,1.0],
-  [98,"Coronary artery bypass",2.5,2.0,3.0],
-  [99,"Coarctation repair, End to end",2.0,2.0,2.0],
-  [100,"Coarctation repair, End to end, Extended",3.0,2.0,3.0],
-  [101,"Coarctation repair, Subclavian flap",2.0,2.0,2.0],
-  [102,"Coarctation repair, Patch aortoplasty",2.0,2.0,2.0],
-  [103,"Coarctation repair, Interposition graft",2.8,2.0,3.0],
-  [104,"Aortic arch repair",2.0,2.0,3.0],
-  [105,"Interrupted aortic arch repair",3.8,3.0,4.0],
-  [106,"PDA closure, Surgical",1.0,1.0,1.0],
-  [107,"Vascular ring repair",2.0,2.0,2.0],
-  [108,"Pulmonary artery sling repair",3.0,3.0,3.0],
-  [109,"Aortic aneurysm repair",3.0,2.8,3.0],
-  [110,"Aortic dissection repair",4.0,3.0,4.0],
-  [111,"Lung biopsy",1.5,2.0,1.5],
-  [112,"Transplant, Lung(s)",4.0,4.0,4.0],
-  [113,"Pectus repair",2.0,1.0,2.3],
-  [114,"Pacemaker implantation, Permanent",1.0,1.0,1.0],
-  [115,"Pacemaker procedure",1.0,1.0,1.0],
-  [116,"ICD (AICD) implantation",1.5,1.0,1.5],
-  [117,"ICD (AICD) procedure",1.5,1.0,1.5],
-  [118,"Arrhythmia surgery — atrial, Surgical ablation",3.0,2.0,3.0],
-  [119,"Shunt, Systemic to pulmonary, Modified Blalock-Taussig (MBTS)",2.0,2.0,2.3],
-  [120,"Shunt, Systemic to pulmonary, Central (aorta or main PA)",2.0,2.0,2.8],
-  [121,"Shunt, Ligation and takedown",1.5,1.0,1.0],
-  [122,"PA banding (PAB)",2.0,2.0,2.0],
-  [123,"PA debanding",2.0,2.0,2.0],
-  [124,"Damus–Kaye–Stansel (DKS), AP anastomosis without arch reconstruction",3.0,3.0,3.5],
-  [125,"Bidirectional cavopulmonary anastomosis (bidirectional Glenn)",2.3,2.0,2.5],
-  [126,"Glenn (unidirectional cavopulmonary anastomosis)",2.5,2.0,2.5],
-  [127,"Bilateral bidirectional cavopulmonary anastomosis (BBDCPA)",2.5,2.0,3.0],
-  [128,"Hemifontan",3.0,2.0,3.0],
-  [129,"Aneurysm, Ventricular, Right, Repair",3.0,2.0,3.0],
-  [130,"Aneurysm, Ventricular, Left, Repair",3.0,2.5,3.5],
-  [131,"Aneurysm, Pulmonary artery, Repair",3.0,2.0,3.0],
-  [132,"Cardiac tumor resection",3.0,2.0,3.0],
-  [133,"Ligation, Pulmonary artery",1.5,2.0,1.5],
-  [134,"Pulmonary embolectomy",3.0,3.0,2.0],
-  [135,"Pleural drainage procedure",0.5,0.5,0.5],
-  [136,"Ligation, Thoracic duct",1.0,2.0,1.0],
-  [137,"Decortication",1.0,1.0,3.0],
-  [138,"Intra-aortic balloon pump (IABP) insertion",0.5,1.0,0.5],
-  [139,"ECMO procedure",2.0,3.0,1.0],
-  [140,"Right/left heart assist device procedure",2.0,3.0,2.0],
-  [141,"Bronchoscopy",0.5,0.5,0.5],
-  [142,"Diaphragm plication",1.0,2.0,1.0],
-  [143,"Delayed sternal closure",0.5,0.5,0.5],
-  [144,"Mediastinal exploration",0.5,0.5,0.5],
-  [145,"Sternotomy wound drainage",0.5,0.5,0.5]
-  ];
-/* Table B3: procedure-specific modifiers keyed by primary procedure number.
-   mods = anatomical/associated checkboxes (m=mortality, mb=morbidity, d=difficulty).
-   age  = age rule (threshold reconstructed from clinical logic — see note in chat).
-   ovr  = "score as primary procedure" overrides -> swap primary basic score to that #. */
-const B3={
-  9:{ m:[
-      {l:"Apical VSD",m:1.0,mb:1.0,d:2.0},
-      {l:"Inlet VSD",m:0.0,mb:1.0,d:0.0},
-      {l:"Straddling AV valve",m:1.0,mb:1.0,d:1.0},
-      {l:"Non-Fallot RVOTO repair",m:0.0,mb:0.0,d:1.0}],
-    age:{l:"Age < 1 month",m:0.5,mb:0.5,d:0.0},
-    ovr:[{l:"Aortic arch repair (excl. IAA) → primary becomes #104",no:104},
-         {l:"Aortic valve repair (Valvuloplasty, aortic) → primary becomes #54",no:54}] },
-  18:{ m:[
-      {l:"VSD enlargement",m:0.0,mb:0.0,d:1.0},
-      {l:"Valvuloplasty, Truncal valve",m:0.5,mb:0.5,d:1.0},
-      {l:"Replacement, Truncal valve",m:0.5,mb:0.5,d:1.0},
-      {l:"Pulmonary artery branch repair",m:0.5,mb:0.5,d:2.0}],
-    age:null,
-    ovr:[{l:"Interrupted aortic arch repair → primary becomes #105",no:105}] },
-  31:{ m:[
-      {l:"Coronary anomaly, LAD from RCA",m:0.5,mb:0.5,d:1.5},
-      {l:"Multiple VSD repair",m:0.5,mb:0.5,d:1.0},
-      {l:"Pulmonary artery branch repair",m:0.5,mb:0.5,d:1.5}],
-    age:{l:"Age < 1 month",m:0.0,mb:1.5,d:1.0},
-    ovr:[{l:"TOF, AVC (AVSD) repair → primary becomes #33",no:33},
-         {l:"TOF, Absent pulmonary valve repair → primary becomes #34",no:34}] },
-  61:{ m:[
-      {l:"Previous homograft",m:0.5,mb:0.5,d:2.0},
-      {l:"Endocarditis",m:0.5,mb:1.0,d:0.5},
-      {l:"Endocarditis with annular abscess",m:1.0,mb:1.0,d:2.0},
-      {l:"Coronary artery bypass",m:0.5,mb:1.0,d:0.5},
-      {l:"Mitral valvuloplasty",m:0.5,mb:0.0,d:0.5},
-      {l:"Aortic arch repair (excl. IAA)",m:0.5,mb:0.0,d:0.5},
-      {l:"Reduction annuloplasty",m:0.5,mb:0.5,d:1.0}],
-    age:{l:"Age < 6 months",m:0.5,mb:1.0,d:0.5},
-    ovr:null },
-  71:{ m:[
-      {l:"Aortic atresia",m:1.0,mb:1.0,d:1.0},
-      {l:"Obstructed pulmonary venous return (no ASD)",m:2.0,mb:1.5,d:0.5},
-      {l:"AV valve regurgitation, Grade 3 and 4",m:1.0,mb:2.0,d:0.5},
-      {l:"Aberrant right subclavian artery (except Sanno shunt)",m:1.0,mb:0.5,d:0.5},
-      {l:"IAA repair",m:1.0,mb:1.0,d:0.5},
-      {l:"TAPVD repair",m:1.0,mb:1.0,d:2.0}],
-    age:{l:"Age > 1 month",m:1.0,mb:2.0,d:0.0},
-    ovr:null },
-  88:{ m:[
-      {l:"Posterior loop: circumflex off the RCA",m:0.5,mb:0.5,d:0.5},
-      {l:"Posterior loop: left trunk off the RCA",m:1.0,mb:1.0,d:1.0},
-      {l:"Anterior loop",m:1.0,mb:1.0,d:1.0},
-      {l:"Double loops",m:1.0,mb:1.0,d:1.0},
-      {l:"Single ostium",m:0.0,mb:0.0,d:1.0},
-      {l:"Intramural coronary",m:1.0,mb:1.0,d:2.0},
-      {l:"Malaligned commissures",m:0.5,mb:0.5,d:0.5},
-      {l:"Large infundibular artery, from LAD",m:0.5,mb:0.5,d:0.5},
-      {l:"ASO post LV retraining",m:0.5,mb:0.5,d:1.0},
-      {l:"Aortic arch repair",m:0.5,mb:1.0,d:1.5},
-      {l:"Take down of a commissure",m:0.5,mb:0.5,d:0.5}],
-    age:null,
-    ovr:null }
-};
 
-/* Table B4: patient (procedure-independent) factors. Groups may have flat `items` or `subs`. */
-const B4=[
- {t:"General factors",items:[
-   {l:"Weight < 2.5 kg",s:2},
-   {l:"Prematurity 32–35 weeks",s:2},
-   {l:"Severe prematurity, < 32 weeks",s:4}]},
- {t:"Clinical factors",subs:[
-   {n:"Cardiac",items:[
-     {l:"Mechanical cardio-pulmonary support (excl. post-op ECMO)",s:4},
-     {l:"Shock, persistent (acidosis pH <7.2 and/or lactate >4)",s:3},
-     {l:"Myocardial dysfunction (LVSF <25% / mod–severe RV)",s:2},
-     {l:"Cardio-pulmonary resuscitation within 48 h",s:2},
-     {l:"Shock, resolved at time of surgery",s:1},
-     {l:"Supraventricular tachycardia (>160 bpm)",s:0.5},
-     {l:"Ventricular tachycardia",s:0.5}]},
-   {n:"Pulmonary",items:[
-     {l:"Mechanical ventilation for cardiorespiratory failure",s:2},
-     {l:"RSV (same hospital admission)",s:3},
-     {l:"Elevated lung resistances — biventricular repair >6 Wood",s:2},
-     {l:"Elevated lung resistances — heart transplant >4 Wood",s:2},
-     {l:"Elevated lung resistances — univentricular repair >2 Wood",s:2},
-     {l:"Single lung (only one lung present)",s:3},
-     {l:"Tracheostomy present",s:1}]},
-   {n:"Infectious",items:[
-     {l:"Septicemia (positive blood culture)",s:2},
-     {l:"Endocarditis",s:3}]},
-   {n:"GIT",items:[
-     {l:"Necrotizing enterocolitis, treated medically",s:1},
-     {l:"Necrotizing enterocolitis, treated surgically",s:2},
-     {l:"Hepatic dysfunction (PT > 2x normal)",s:1},
-     {l:"Enterostomy present",s:0.5}]},
-   {n:"Hematology",items:[
-     {l:"Coagulation disorder — acquired",s:1},
-     {l:"Coagulation disorder — congenital",s:0.5}]},
-   {n:"Renal",items:[
-     {l:"Renal dysfunction",s:1},
-     {l:"Renal failure requiring dialysis",s:3}]},
-   {n:"Neurologic",items:[
-     {l:"Stroke/CVA/intracranial hemorrhage >grade 2, during lifetime",s:1},
-     {l:"Stroke/CVA/intracranial hemorrhage >grade 2, within 48 h",s:2},
-     {l:"Seizure during lifetime",s:0.5},
-     {l:"Seizure within 48 h prior to surgery",s:1}]},
-   {n:"Endocrine",items:[
-     {l:"Hypothyroidism (TSH >20 mU/l)",s:1},
-     {l:"Diabetes mellitus — insulin dependent",s:1},
-     {l:"Diabetes mellitus — non-insulin dependent",s:0.5}]}
- ]},
- {t:"Extra-cardiac factors",subs:[
-   {n:"CNS",items:[{l:"Hydrocephalus",s:0.5},{l:"Spina bifida",s:0.5}]},
-   {n:"Respiratory",items:[
-     {l:"Laryngo-malacia",s:3},{l:"Broncho-tracheal malacia",s:3},
-     {l:"Cystic fibrosis",s:2},{l:"Tracheo-oesophageal fistula",s:1},
-     {l:"Pulmonary lymphangectasis",s:1},{l:"Choanal atresia",s:0.5},
-     {l:"Cleft palate",s:0.5},{l:"Congenital lobar emphysema",s:0.5},
-     {l:"Congenital cystic adenomatoid malformation",s:0.5},
-     {l:"Sequestration",s:0.5},{l:"Chest wall deformity incl. pectus",s:0.5}]},
-   {n:"GIT",items:[
-     {l:"Biliary atresia",s:4},{l:"Gastroschisis",s:2},{l:"Omphalocele",s:1},
-     {l:"Duodenal atresia",s:1},{l:"Imperforate anus",s:0.5},
-     {l:"Hirschsprung's disease",s:0.5},
-     {l:"Inflammatory bowel disease (Crohn's, UC)",s:0.5}]},
-   {n:"Renal",items:[
-     {l:"Polycystic disease",s:0.5},{l:"Vesico-ureteric reflux",s:0.5},
-     {l:"Hydronephrosis (PUJ/VUJ obstruction)",s:0.5}]},
-   {n:"Genetic + chromosomal",items:[
-     {l:"Marfan's syndrome",s:2},{l:"Down's syndrome",s:1},
-     {l:"Di George",s:1},{l:"22q11 deletion",s:1},
-     {l:"Williams-Beuren's syndrome",s:1},{l:"Alagille's syndrome",s:0.5},
-     {l:"Turner's syndrome",s:0.5},{l:"Other",s:0.5}]},
-   {n:"Spatial anomalies",items:[
-     {l:"Heterotaxia",s:1},{l:"Situs inversus",s:0.5},
-     {l:"Criss-cross heart",s:0.5},{l:"Dextrocardia",s:0.5}]},
-   {n:"Other",items:[
-     {l:"Ectopia cordis",s:4},{l:"Diabetic mother",s:1},
-     {l:"Muscular dystrophy",s:0.5},{l:"Currently taking steroids",s:0.5}]}
- ]},
- {t:"Surgical technique factors",items:[
-   {l:"Redo sternotomy: redo #1, 2, or 3",s:2},
-   {l:"Redo sternotomy: redo #4 or more",s:1},
-   {l:"Redo thoracotomy",s:1},
-   {l:"Minimally invasive sternotomy",s:0.5},
-   {l:"Minimally invasive AL thoracotomy",s:0.5},
-   {l:"Minimally invasive PL thoracotomy",s:0.5},
-   {l:"Minimally invasive posterior thoracotomy",s:1},
-   {l:"Robot surgery",s:0.5},
-   {l:"VATS",s:0.5}]}
-];
+/* ================= Searchable dropdown component ================= */
+function Dropdown(root, options, opts = {}) {
+  const id = 'dd-' + Math.random().toString(36).slice(2, 8);
+  let selected = null, isOpen = false, typed = false, active = -1, items = [];
+
+  root.classList.add('dd');
+  const field = document.createElement('div');
+  field.className = 'dd-field';
+
+  const input = document.createElement('input');
+  input.className = 'dd-input';
+  input.type = 'text';
+  input.autocomplete = 'off';
+  input.spellcheck = false;
+  input.placeholder = opts.placeholder || 'Select…';
+  input.setAttribute('role', 'combobox');
+  input.setAttribute('aria-autocomplete', 'list');
+  input.setAttribute('aria-expanded', 'false');
+  input.setAttribute('aria-controls', id + '-list');
+  input.setAttribute('aria-label', opts.label || input.placeholder);
+
+  const btn = document.createElement('button');
+  btn.className = 'dd-btn';
+  btn.type = 'button';
+  btn.tabIndex = -1;
+  btn.innerHTML = '<span class="dd-icon"><i></i><i></i></span>';
+
+  const menu = document.createElement('ul');
+  menu.className = 'dd-menu';
+  menu.id = id + '-list';
+  menu.setAttribute('role', 'listbox');
+  menu.addEventListener('mousedown', e => e.preventDefault()); // keep focus (also for the scrollbar)
+
+  field.append(input, btn);
+  root.append(field, menu);
+
+  function refresh() {
+    const q = typed ? input.value.trim().toLowerCase() : '';
+    items = options.filter(o => o.toLowerCase().includes(q));
+    menu.replaceChildren();
+    if (!items.length) {
+      const li = document.createElement('li');
+      li.className = 'dd-empty';
+      li.textContent = 'No matches';
+      menu.append(li);
+    }
+    items.forEach((label, i) => {
+      const li = document.createElement('li');
+      li.id = `${id}-${i}`;
+      li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', String(label === selected));
+      const at = q ? label.toLowerCase().indexOf(q) : -1;
+      if (at >= 0) {
+        const mark = document.createElement('mark');
+        mark.textContent = label.slice(at, at + q.length);
+        li.append(label.slice(0, at), mark, label.slice(at + q.length));
+      } else {
+        li.textContent = label;
+      }
+      li.addEventListener('click', () => choose(label));
+      li.addEventListener('mousemove', () => { if (active !== i) { active = i; paint(false); } });
+      menu.append(li);
+    });
+    active = items.length ? (!typed && selected ? Math.max(0, items.indexOf(selected)) : 0) : -1;
+    paint();
+  }
+
+  function paint(scroll = true) {
+    [...menu.children].forEach((li, i) => li.toggleAttribute('data-active', i === active));
+    if (active >= 0) {
+      input.setAttribute('aria-activedescendant', `${id}-${active}`);
+      if (scroll) menu.children[active].scrollIntoView({ block: 'nearest' });
+    } else {
+      input.removeAttribute('aria-activedescendant');
+    }
+  }
+
+  function syncButton() {
+    root.toggleAttribute('data-has-value', selected !== null);
+    btn.setAttribute('aria-label', selected !== null ? 'Clear selection' : 'Toggle options');
+  }
+
+  function openMenu() {
+    if (isOpen) return;
+    isOpen = true;
+    root.setAttribute('data-open', '');
+    input.setAttribute('aria-expanded', 'true');
+    refresh();
+  }
+
+  function closeMenu() {
+    isOpen = false;
+    typed = false;
+    root.removeAttribute('data-open');
+    input.setAttribute('aria-expanded', 'false');
+    input.removeAttribute('aria-activedescendant');
+    input.value = selected ?? '';
+  }
+
+  function choose(label) {
+    selected = label;
+    syncButton();
+    closeMenu();
+    opts.onChange?.(label);
+  }
+
+  function clear() {
+    selected = null;
+    typed = false;
+    syncButton();
+    closeMenu();
+    input.focus();
+    opts.onChange?.(null);
+  }
+
+  /* Programmatic set (does not call onChange) */
+  function set(label) {
+    selected = label ?? null;
+    typed = false;
+    syncButton();
+    closeMenu();
+  }
+
+  function move(step) {
+    if (!items.length) return;
+    active = (active + step + items.length) % items.length;
+    paint();
+  }
+
+  input.addEventListener('input', () => {
+    typed = true;
+    if (selected !== null) { selected = null; syncButton(); opts.onChange?.(null); }
+    if (isOpen) refresh(); else openMenu();
+  });
+  input.addEventListener('focus', () => { if (selected) input.select(); });
+  input.addEventListener('click', openMenu);
+  input.addEventListener('blur', closeMenu);
+  input.addEventListener('keydown', e => {
+    switch (e.key) {
+      case 'ArrowDown': e.preventDefault(); isOpen ? move(1) : openMenu(); break;
+      case 'ArrowUp':   e.preventDefault(); isOpen ? move(-1) : openMenu(); break;
+      case 'Enter':
+        if (isOpen) { e.preventDefault(); if (active >= 0) choose(items[active]); }
+        break;
+      case 'Escape':
+        if (isOpen) { e.preventDefault(); closeMenu(); if (selected) input.select(); }
+        break;
+      case 'Tab': closeMenu(); break;
+    }
+  });
+
+  btn.addEventListener('mousedown', e => e.preventDefault());
+  btn.addEventListener('click', () => {
+    if (selected !== null) return clear();
+    input.focus();
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  if (opts.initial) set(opts.initial);
+  return { get value() { return selected; }, set, clear };
+}
+
+/* ================= Data: loaded from JSON files ================= */
+Promise.all(["b2.json","b3.json","b4.json"].map(f=>
+  fetch("data/"+f).then(r=>{ if(!r.ok) throw new Error("data/"+f+" → HTTP "+r.status); return r.json(); })
+)).then(([b2,b3,b4])=>init(b2,b3,b4)).catch(err=>{
+  document.getElementById("proc-dd").textContent="⚠ Could not load the data files ("+err.message+"). Serve the folder through a local web server instead of opening the file directly.";
+  console.error(err);
+});
+
+function init(B2R,B3,B4){
 const byNo={}; B2R.forEach(r=>byNo[r[0]]=r);
 const fmt=n=>(Math.round(n*100)/100).toFixed(2).replace(/\.?0+$/,"");
 
@@ -397,122 +260,21 @@ const BAND_STOPS=[1.5,6,8,10,15,20,25];
   band.appendChild(mk);
 })();
 
-/* fill primary procedure select */
-const proc=document.getElementById("proc");
-proc.appendChild(Object.assign(document.createElement("option"),{}));
-const blank = document.createElement("option");
-blank.value = ""; blank.textContent = "…";
-proc.appendChild(blank);
-B2R.forEach(r=>{
-  const o=document.createElement("option");
-  o.value=r[0]; o.textContent=r[0]+"  ·  "+r[1]; proc.appendChild(o);
+/* ================= Primary procedure picker (Table B2) ================= */
+const DEFAULT_PROC=88; // ASO
+let procNo=DEFAULT_PROC; // currently selected B2 procedure number, or null
+const procLabel=r=>r[0]+" · "+r[1];
+const procByLabel=new Map(B2R.map(r=>[procLabel(r),r[0]]));
+const procDD=Dropdown(document.getElementById("proc-dd"),B2R.map(procLabel),{
+  placeholder:"Type to search, e.g. “TCPC”…",
+  label:"Primary procedure",
+  initial:procLabel(byNo[DEFAULT_PROC]),
+  onChange:label=>{
+    procNo=label?procByLabel.get(label):null;
+    renderSpecifics(); recompute();
+  }
 });
-proc.value="88"; // sensible default (ASO)
 
-// /* Change #1: searchable Table B2 procedure picker */
-// (function () {
-//   const sel  = document.getElementById("proc");
-//   const inp  = document.getElementById("proc-search");
-//   const list = document.getElementById("proc-list");
-
-//   // Suggest from the same source as the <select>
-//   for (const o of sel.options) {
-//     if (o.value === "") continue;            // skip the empty placeholder option
-//     const d = document.createElement("option");
-//     d.value = o.textContent;
-//     list.appendChild(d);
-//   }
-
-//   // User picks a suggestion → mirror it into the <select> and
-//   // fire "change" so your existing handler recomputes the score.
-//   inp.addEventListener("change", () => {
-//     const hit = [...sel.options].find(o => o.textContent === inp.value);
-//     if (hit) {
-//       sel.value = hit.value;
-//       sel.dispatchEvent(new Event("change"));
-//     }
-//   });
-// })();
-
-/* Change #1b: B2 picker — select-styled when chosen; × to undo */
-(function () {
-  // const sel  = document.getElementById("proc");
-  const inp  = document.getElementById("proc-search");
-  const PLACEHOLDER = "Type to search, e.g. “asd”…";
-
-  // Own datalist, built straight from the data (identical labels to #proc)
-  const dl = document.createElement("datalist");
-  for (const r of B2R) {
-    const o = document.createElement("option");
-    o.value = r[0] + "  ·  " + r[1];
-    dl.appendChild(o);
-  }
-  document.body.appendChild(dl);
-  inp.setAttribute("list", dl.id || "");
-  dl.id = "proc-dl"; inp.setAttribute("list", dl.id);
-
-  let open = false;   // true = a search result is sitting in the box
-
-  function render() {
-    inp.setAttribute("aria-busy", open ? "true" : "false");
-    inp.placeholder = open ? "   ×" : PLACEHOLDER;
-    inp.readOnly = open;
-    dl.style.display = open ? "none" : "";
-  }
-
-  function undo() {          // × also clears the *procedure* selection
-    inp.value = "";
-    sel.value = "";                       // "no procedure" state
-    sel.dispatchEvent(new Event("change"));
-    open = false;
-    inp.classList.add("cleared");
-    setTimeout(() => inp.classList.remove("cleared"), 500);
-    inp.focus();
-  }
-
-  inp.addEventListener("change", () => {   // user picked a suggestion
-    const hit = [...sel.options].find(o => o.textContent === inp.value);
-    if (!hit) return;
-    sel.value = hit.value;
-    sel.dispatchEvent(new Event("change"));   // your original handler
-    open = true;
-    render();
-  });
-
-  inp.addEventListener("keydown", e => {
-    if (e.target !== inp) return;
-    if (e.key === "Enter") {                  // typed + Enter → first match
-      const [hit] = dl.options;
-      if (hit && inp.value) {
-        e.preventDefault();
-        inp.value = hit.value;
-        inp.dispatchEvent(new Event("change"));
-      }
-    }
-    else if (e.key === "Escape" && open) {
-      e.preventDefault();
-      undo();
-    }
-  });
-
-  inp.addEventListener("click", e => {
-    if (!open) return;                        // closed → normal caret
-    const r = inp.getBoundingClientRect();
-    if (e.clientX > r.right - 36) undo();     // hit the ×/arrow zone
-  });
-
-  inp.addEventListener("focus", () => {
-    if (open) undo();                         // reopening the box always starts fresh
-  });
-
-  const cur = [...sel.options].find(o => o.value === sel.value);
-  if (cur) { inp.value = cur.textContent; open = true; }
-  render();
-})();
-
-
-
-/* continued code from first prompt */
 function chipEl(dataAttr,val,label){
   const lab=document.createElement("label"); lab.className="chip";
   const cb=document.createElement("input"); cb.type="checkbox";
@@ -527,19 +289,19 @@ function chipEl(dataAttr,val,label){
 /* render B3 section for the currently chosen primary */
 function renderSpecifics(){
   const sec=document.getElementById("sec-specific"), box=document.getElementById("specifics");
-  const pno=parseInt(proc.value,10), cfg=B3[pno];
-  if(!cfg){ sec.hidden=true; box.innerHTML="";
-    document.getElementById("sec-none").hidden=false; return; }
-  sec.hidden=false; box.innerHTML="";
+  const cfg=procNo==null?null:B3[procNo];
+  box.innerHTML="";
+
+  if(!cfg){ 
+    const h=document.createElement("div"); h.className="hint"; h.textContent="This procedure does not require additional procedure-specific information."; box.appendChild(h);
+  }
+  
   if(cfg.ovr&&cfg.ovr.length){
     const h=document.createElement("div"); h.className="subhead"; h.textContent="Score as primary procedure (override)"; box.appendChild(h);
     const sel=document.createElement("select"); sel.id="ovr";
     const def=document.createElement("option"); def.value=""; def.textContent="No override"; sel.appendChild(def);
     cfg.ovr.forEach(o=>{const op=document.createElement("option");op.value=o.no;op.textContent=o.l;sel.appendChild(op);});
     box.appendChild(sel);
-    const not=document.createElement("div"); not.id="sec-none"; not.hidden=true; box.appendChild(not);
-  } else {
-    const not=document.createElement("div"); not.id="sec-none"; not.hidden=true; box.appendChild(not);
   }
   const chrome=document.createElement("div"); chrome.className="subhead"; chrome.textContent="Associated factors"; box.appendChild(chrome);
   cfg.m.forEach(mt=>box.appendChild(chipEl("b3m",fmt(mt.m+mt.mb+mt.d),mt.l)));
@@ -569,10 +331,23 @@ function renderSpecifics(){
 
 /* main recompute */
 function recompute(){
-  const pno=parseInt(proc.value,10);
+  const lvlEl=document.getElementById("level");
+  const mk=document.getElementById("marker");
+  const ovNote=document.getElementById("override-note");
+  const bd=document.getElementById("breakdown");
+
+  /* no procedure selected (dropdown cleared) */
+  if(procNo==null){
+    document.getElementById("score").textContent="—";
+    lvlEl.textContent="Select a procedure"; lvlEl.style.background="";
+    mk.hidden=true; ovNote.hidden=true; bd.innerHTML="";
+    document.getElementById("proc-info").textContent="";
+    return;
+  }
+
   const ovrSel=document.getElementById("ovr");
   const ovrNo=ovrSel?parseInt(ovrSel.value,10)||null:null;
-  const effNo=ovrNo||pno;
+  const effNo=ovrNo||procNo;
   const eff=byNo[effNo];
   const basic=eff[2]+eff[3]+eff[4];
 
@@ -595,11 +370,9 @@ function recompute(){
 
   /* score + level */
   document.getElementById("score").textContent=fmt(total);
-  const lvlEl=document.getElementById("level");
   lvlEl.textContent="Complexity level "+lvl; lvlEl.style.background=LEVEL_COLORS[lvl];
 
   /* marker position on the 1.5–25 band */
-  const mk=document.getElementById("marker");
   const pos=Math.min(100,Math.max(0,(total-1.5)/(25-1.5)*100));
   mk.style.left=pos+"%"; mk.hidden=false;
 
@@ -608,13 +381,12 @@ function recompute(){
     "Basic score <b>"+fmt(basic)+"</b>  (Mortality "+fmt(eff[2])+" · Morbidity "+fmt(eff[3])+" · Difficulty "+fmt(eff[4])+")";
 
   /* override warning */
-  const ovNote=document.getElementById("override-note");
   if(ovrNo){ ovNote.hidden=false;
     ovNote.textContent="Overridden: primary scored as #"+ovrNo+" "+byNo[ovrNo][1];
   } else ovNote.hidden=true;
 
   /* breakdown */
-  const bd=document.getElementById("breakdown"); bd.innerHTML="";
+  bd.innerHTML="";
   const row=(label,val)=>{const r=document.createElement("div");r.className="row";
     r.innerHTML='<span class="lbl"></span><span></span>';
     r.children[0].textContent=label; r.children[1].textContent="+"+fmt(val); bd.appendChild(r);};
@@ -626,14 +398,13 @@ function recompute(){
 }
 
 /* events */
-proc.addEventListener("change",()=>{renderSpecifics();recompute();});
 document.getElementById("form").addEventListener("input",recompute);
 document.getElementById("form").addEventListener("change",recompute);
 
 document.getElementById("btn-reset").addEventListener("click",()=>{
   document.querySelectorAll("input[type=checkbox]").forEach(c=>c.checked=false);
-  const o=document.getElementById("ovr"); if(o)o.value="";
-  proc.value="88"; renderSpecifics(); recompute();
+  procNo=DEFAULT_PROC; procDD.set(procLabel(byNo[DEFAULT_PROC]));
+  renderSpecifics(); recompute();
 });
 
 document.getElementById("btn-copy").addEventListener("click",()=>{
@@ -646,14 +417,14 @@ document.getElementById("btn-copy").addEventListener("click",()=>{
   const bd=document.getElementById("breakdown");
   txt+="\nBreakdown:\n";
   bd.querySelectorAll(".row").forEach(r=>{txt+="  "+r.children[0].textContent+"  "+r.children[1].textContent+"\n";});
-  txt+="\nSource: Lacour-Gayet et al., EJC 2004;25:911-924 (educational reference only).";
+  // txt+="\nSource: Lacour-Gayet et al., EJC 2004;25:911-924 (educational reference only).";
   navigator.clipboard&&navigator.clipboard.writeText(txt);
   const b=document.getElementById("btn-copy"); const old=b.textContent; b.textContent="Copied!";
   setTimeout(()=>b.textContent=old,1200);
 });
 
 renderSpecifics(); recompute();
+}
 </script>
-
-</body> 
-</html> 
+</body>
+</html>

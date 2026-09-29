@@ -1,0 +1,291 @@
+{
+ "9": {
+  "m": [
+   {
+    "l": "Apical VSD",
+    "m": 1,
+    "mb": 1,
+    "d": 2
+   },
+   {
+    "l": "Inlet VSD",
+    "m": 0,
+    "mb": 1,
+    "d": 0
+   },
+   {
+    "l": "Straddling AV valve",
+    "m": 1,
+    "mb": 1,
+    "d": 1
+   },
+   {
+    "l": "Non-Fallot RVOTO repair",
+    "m": 0,
+    "mb": 0,
+    "d": 1
+   }
+  ],
+  "age": {
+   "l": "Age < 1 month",
+   "m": 0.5,
+   "mb": 0.5,
+   "d": 0
+  },
+  "ovr": [
+   {
+    "l": "Aortic arch repair (excl. IAA) → primary becomes #104",
+    "no": 104
+   },
+   {
+    "l": "Aortic valve repair (Valvuloplasty, aortic) → primary becomes #54",
+    "no": 54
+   }
+  ]
+ },
+ "18": {
+  "m": [
+   {
+    "l": "VSD enlargement",
+    "m": 0,
+    "mb": 0,
+    "d": 1
+   },
+   {
+    "l": "Valvuloplasty, Truncal valve",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 1
+   },
+   {
+    "l": "Replacement, Truncal valve",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 1
+   },
+   {
+    "l": "Pulmonary artery branch repair",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 2
+   }
+  ],
+  "age": null,
+  "ovr": [
+   {
+    "l": "Interrupted aortic arch repair → primary becomes #105",
+    "no": 105
+   }
+  ]
+ },
+ "31": {
+  "m": [
+   {
+    "l": "Coronary anomaly, LAD from RCA",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 1.5
+   },
+   {
+    "l": "Multiple VSD repair",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 1
+   },
+   {
+    "l": "Pulmonary artery branch repair",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 1.5
+   }
+  ],
+  "age": {
+   "l": "Age < 1 month",
+   "m": 0,
+   "mb": 1.5,
+   "d": 1
+  },
+  "ovr": [
+   {
+    "l": "TOF, AVC (AVSD) repair → primary becomes #33",
+    "no": 33
+   },
+   {
+    "l": "TOF, Absent pulmonary valve repair → primary becomes #34",
+    "no": 34
+   }
+  ]
+ },
+ "61": {
+  "m": [
+   {
+    "l": "Previous homograft",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 2
+   },
+   {
+    "l": "Endocarditis",
+    "m": 0.5,
+    "mb": 1,
+    "d": 0.5
+   },
+   {
+    "l": "Endocarditis with annular abscess",
+    "m": 1,
+    "mb": 1,
+    "d": 2
+   },
+   {
+    "l": "Coronary artery bypass",
+    "m": 0.5,
+    "mb": 1,
+    "d": 0.5
+   },
+   {
+    "l": "Mitral valvuloplasty",
+    "m": 0.5,
+    "mb": 0,
+    "d": 0.5
+   },
+   {
+    "l": "Aortic arch repair (excl. IAA)",
+    "m": 0.5,
+    "mb": 0,
+    "d": 0.5
+   },
+   {
+    "l": "Reduction annuloplasty",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 1
+   }
+  ],
+  "age": {
+   "l": "Age < 6 months",
+   "m": 0.5,
+   "mb": 1,
+   "d": 0.5
+  },
+  "ovr": null
+ },
+ "71": {
+  "m": [
+   {
+    "l": "Aortic atresia",
+    "m": 1,
+    "mb": 1,
+    "d": 1
+   },
+   {
+    "l": "Obstructed pulmonary venous return (no ASD)",
+    "m": 2,
+    "mb": 1.5,
+    "d": 0.5
+   },
+   {
+    "l": "AV valve regurgitation, Grade 3 and 4",
+    "m": 1,
+    "mb": 2,
+    "d": 0.5
+   },
+   {
+    "l": "Aberrant right subclavian artery (except Sanno shunt)",
+    "m": 1,
+    "mb": 0.5,
+    "d": 0.5
+   },
+   {
+    "l": "IAA repair",
+    "m": 1,
+    "mb": 1,
+    "d": 0.5
+   },
+   {
+    "l": "TAPVD repair",
+    "m": 1,
+    "mb": 1,
+    "d": 2
+   }
+  ],
+  "age": {
+   "l": "Age > 1 month",
+   "m": 1,
+   "mb": 2,
+   "d": 0
+  },
+  "ovr": null
+ },
+ "88": {
+  "m": [
+   {
+    "l": "Posterior loop: circumflex off the RCA",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 0.5
+   },
+   {
+    "l": "Posterior loop: left trunk off the RCA",
+    "m": 1,
+    "mb": 1,
+    "d": 1
+   },
+   {
+    "l": "Anterior loop",
+    "m": 1,
+    "mb": 1,
+    "d": 1
+   },
+   {
+    "l": "Double loops",
+    "m": 1,
+    "mb": 1,
+    "d": 1
+   },
+   {
+    "l": "Single ostium",
+    "m": 0,
+    "mb": 0,
+    "d": 1
+   },
+   {
+    "l": "Intramural coronary",
+    "m": 1,
+    "mb": 1,
+    "d": 2
+   },
+   {
+    "l": "Malaligned commissures",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 0.5
+   },
+   {
+    "l": "Large infundibular artery, from LAD",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 0.5
+   },
+   {
+    "l": "ASO post LV retraining",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 1
+   },
+   {
+    "l": "Aortic arch repair",
+    "m": 0.5,
+    "mb": 1,
+    "d": 1.5
+   },
+   {
+    "l": "Take down of a commissure",
+    "m": 0.5,
+    "mb": 0.5,
+    "d": 0.5
+   }
+  ],
+  "age": null,
+  "ovr": null
+ }
+}

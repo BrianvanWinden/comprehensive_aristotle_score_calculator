@@ -1,0 +1,425 @@
+[
+ {
+  "t": "General factors",
+  "items": [
+   {
+    "l": "Weight < 2.5 kg",
+    "s": 2
+   },
+   {
+    "l": "Prematurity 32–35 weeks",
+    "s": 2
+   },
+   {
+    "l": "Severe prematurity, < 32 weeks",
+    "s": 4
+   }
+  ]
+ },
+ {
+  "t": "Clinical factors",
+  "subs": [
+   {
+    "n": "Cardiac",
+    "items": [
+     {
+      "l": "Mechanical cardio-pulmonary support (excl. post-op ECMO)",
+      "s": 4
+     },
+     {
+      "l": "Shock, persistent (acidosis pH <7.2 and/or lactate >4)",
+      "s": 3
+     },
+     {
+      "l": "Myocardial dysfunction (LVSF <25% / mod–severe RV)",
+      "s": 2
+     },
+     {
+      "l": "Cardio-pulmonary resuscitation within 48 h",
+      "s": 2
+     },
+     {
+      "l": "Shock, resolved at time of surgery",
+      "s": 1
+     },
+     {
+      "l": "Supraventricular tachycardia (>160 bpm)",
+      "s": 0.5
+     },
+     {
+      "l": "Ventricular tachycardia",
+      "s": 0.5
+     }
+    ]
+   },
+   {
+    "n": "Pulmonary",
+    "items": [
+     {
+      "l": "Mechanical ventilation for cardiorespiratory failure",
+      "s": 2
+     },
+     {
+      "l": "RSV (same hospital admission)",
+      "s": 3
+     },
+     {
+      "l": "Elevated lung resistances — biventricular repair >6 Wood",
+      "s": 2
+     },
+     {
+      "l": "Elevated lung resistances — heart transplant >4 Wood",
+      "s": 2
+     },
+     {
+      "l": "Elevated lung resistances — univentricular repair >2 Wood",
+      "s": 2
+     },
+     {
+      "l": "Single lung (only one lung present)",
+      "s": 3
+     },
+     {
+      "l": "Tracheostomy present",
+      "s": 1
+     }
+    ]
+   },
+   {
+    "n": "Infectious",
+    "items": [
+     {
+      "l": "Septicemia (positive blood culture)",
+      "s": 2
+     },
+     {
+      "l": "Endocarditis",
+      "s": 3
+     }
+    ]
+   },
+   {
+    "n": "Gastrointestinal Tract",
+    "items": [
+     {
+      "l": "Necrotizing enterocolitis, treated medically",
+      "s": 1
+     },
+     {
+      "l": "Necrotizing enterocolitis, treated surgically",
+      "s": 2
+     },
+     {
+      "l": "Hepatic dysfunction (PT > 2x normal)",
+      "s": 1
+     },
+     {
+      "l": "Enterostomy present",
+      "s": 0.5
+     }
+    ]
+   },
+   {
+    "n": "Hematology",
+    "items": [
+     {
+      "l": "Coagulation disorder — acquired",
+      "s": 1
+     },
+     {
+      "l": "Coagulation disorder — congenital",
+      "s": 0.5
+     }
+    ]
+   },
+   {
+    "n": "Renal",
+    "items": [
+     {
+      "l": "Renal dysfunction",
+      "s": 1
+     },
+     {
+      "l": "Renal failure requiring dialysis",
+      "s": 3
+     }
+    ]
+   },
+   {
+    "n": "Neurologic",
+    "items": [
+     {
+      "l": "Stroke/CVA/intracranial hemorrhage >grade 2, during lifetime",
+      "s": 1
+     },
+     {
+      "l": "Stroke/CVA/intracranial hemorrhage >grade 2, within 48 h",
+      "s": 2
+     },
+     {
+      "l": "Seizure during lifetime",
+      "s": 0.5
+     },
+     {
+      "l": "Seizure within 48 h prior to surgery",
+      "s": 1
+     }
+    ]
+   },
+   {
+    "n": "Endocrine",
+    "items": [
+     {
+      "l": "Hypothyroidism (TSH >20 mU/l)",
+      "s": 1
+     },
+     {
+      "l": "Diabetes mellitus — insulin dependent",
+      "s": 1
+     },
+     {
+      "l": "Diabetes mellitus — non-insulin dependent",
+      "s": 0.5
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "t": "Extra-cardiac factors",
+  "subs": [
+   {
+    "n": "CNS",
+    "items": [
+     {
+      "l": "Hydrocephalus",
+      "s": 0.5
+     },
+     {
+      "l": "Spina bifida",
+      "s": 0.5
+     }
+    ]
+   },
+   {
+    "n": "Respiratory",
+    "items": [
+     {
+      "l": "Laryngo-malacia",
+      "s": 3
+     },
+     {
+      "l": "Broncho-tracheal malacia",
+      "s": 3
+     },
+     {
+      "l": "Cystic fibrosis",
+      "s": 2
+     },
+     {
+      "l": "Tracheo-oesophageal fistula",
+      "s": 1
+     },
+     {
+      "l": "Pulmonary lymphangectasis",
+      "s": 1
+     },
+     {
+      "l": "Choanal atresia",
+      "s": 0.5
+     },
+     {
+      "l": "Cleft palate",
+      "s": 0.5
+     },
+     {
+      "l": "Congenital lobar emphysema",
+      "s": 0.5
+     },
+     {
+      "l": "Congenital cystic adenomatoid malformation",
+      "s": 0.5
+     },
+     {
+      "l": "Sequestration",
+      "s": 0.5
+     },
+     {
+      "l": "Chest wall deformity incl. pectus",
+      "s": 0.5
+     }
+    ]
+   },
+   {
+    "n": "Gastrointestinal Tract",
+    "items": [
+     {
+      "l": "Biliary atresia",
+      "s": 4
+     },
+     {
+      "l": "Gastroschisis",
+      "s": 2
+     },
+     {
+      "l": "Omphalocele",
+      "s": 1
+     },
+     {
+      "l": "Duodenal atresia",
+      "s": 1
+     },
+     {
+      "l": "Imperforate anus",
+      "s": 0.5
+     },
+     {
+      "l": "Hirschsprung's disease",
+      "s": 0.5
+     },
+     {
+      "l": "Inflammatory bowel disease (Crohn's, UC)",
+      "s": 0.5
+     }
+    ]
+   },
+   {
+    "n": "Renal",
+    "items": [
+     {
+      "l": "Polycystic disease",
+      "s": 0.5
+     },
+     {
+      "l": "Vesico-ureteric reflux",
+      "s": 0.5
+     },
+     {
+      "l": "Hydronephrosis (PUJ/VUJ obstruction)",
+      "s": 0.5
+     }
+    ]
+   },
+   {
+    "n": "Genetic + chromosomal",
+    "items": [
+     {
+      "l": "Marfan's syndrome",
+      "s": 2
+     },
+     {
+      "l": "Down's syndrome",
+      "s": 1
+     },
+     {
+      "l": "Di George",
+      "s": 1
+     },
+     {
+      "l": "22q11 deletion",
+      "s": 1
+     },
+     {
+      "l": "Williams-Beuren's syndrome",
+      "s": 1
+     },
+     {
+      "l": "Alagille's syndrome",
+      "s": 0.5
+     },
+     {
+      "l": "Turner's syndrome",
+      "s": 0.5
+     },
+     {
+      "l": "Other",
+      "s": 0.5
+     }
+    ]
+   },
+   {
+    "n": "Spatial anomalies",
+    "items": [
+     {
+      "l": "Heterotaxia",
+      "s": 1
+     },
+     {
+      "l": "Situs inversus",
+      "s": 0.5
+     },
+     {
+      "l": "Criss-cross heart",
+      "s": 0.5
+     },
+     {
+      "l": "Dextrocardia",
+      "s": 0.5
+     }
+    ]
+   },
+   {
+    "n": "Other",
+    "items": [
+     {
+      "l": "Ectopia cordis",
+      "s": 4
+     },
+     {
+      "l": "Diabetic mother",
+      "s": 1
+     },
+     {
+      "l": "Muscular dystrophy",
+      "s": 0.5
+     },
+     {
+      "l": "Currently taking steroids",
+      "s": 0.5
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "t": "Surgical technique factors",
+  "items": [
+   {
+    "l": "Redo sternotomy: redo #1, 2, or 3",
+    "s": 2
+   },
+   {
+    "l": "Redo sternotomy: redo #4 or more",
+    "s": 1
+   },
+   {
+    "l": "Redo thoracotomy",
+    "s": 1
+   },
+   {
+    "l": "Minimally invasive sternotomy",
+    "s": 0.5
+   },
+   {
+    "l": "Minimally invasive AL thoracotomy",
+    "s": 0.5
+   },
+   {
+    "l": "Minimally invasive PL thoracotomy",
+    "s": 0.5
+   },
+   {
+    "l": "Minimally invasive posterior thoracotomy",
+    "s": 1
+   },
+   {
+    "l": "Robot surgery",
+    "s": 0.5
+   },
+   {
+    "l": "VATS",
+    "s": 0.5
+   }
+  ]
+ }
+]
