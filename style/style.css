@@ -10,11 +10,15 @@ main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:18px;padding:18p
 select,button{font:inherit}
 select{width:100%;padding:9px 10px;border:1px solid #b9c7d6;border-radius:8px;background:#fff}
 .info{margin-top:8px;font-size:13px;color:#41566e}
+
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:25px;margin-top:8px}
+.chips:last-child{margin-bottom:12px}
+
 .chip{display:flex;align-items:center;gap:6px;border:1px solid #c9d6e3;border-radius:999px;padding:4px 10px;font-size:13px;background:#fbfdff;cursor:pointer}
 .chip input{margin:0}
 .chip .pts{color:#0f3057;font-weight:600;font-size:12px;background:#e8f0f9;border-radius:999px;padding:0 6px}
 .chip:has(input:checked){border-color:#0f3057;background:#e8f0f9}
+
 details{border:1px solid #e1e8f0;border-radius:8px;margin-bottom:8px;padding:8px 10px;background:#fbfdff}
 summary{cursor:pointer;font-weight:600;font-size:13px;color:#0f3057}
 .subhead{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:#62788f;margin:10px 0 6px}
