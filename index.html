@@ -303,7 +303,7 @@ function renderSpecifics(){
     const h=document.createElement("div"); h.className="hint"; h.textContent="This procedure does not require additional procedure-specific information."; box.appendChild(h);
   }
 
-  if(cfg.ovr&&cfg.ovr.length){
+    if(cfg.ovr&&cfg.ovr.length){
     const h=document.createElement("div"); h.className="subhead"; h.textContent="Score as primary procedure (override)"; box.appendChild(h);
     const sel=document.createElement("select"); sel.id="ovr";
     const def=document.createElement("option"); def.value=""; def.textContent="No override"; sel.appendChild(def);
@@ -311,8 +311,11 @@ function renderSpecifics(){
     box.appendChild(sel);
   }
   const chrome=document.createElement("div"); chrome.className="subhead"; chrome.textContent="Associated factors"; box.appendChild(chrome);
-  cfg.m.forEach(mt=>box.appendChild(chipEl("b3m",fmt(mt.m+mt.mb+mt.d),mt.l)));
-  if(cfg.age)box.appendChild(chipEl("b3m",fmt(cfg.age.m+cfg.age.mb+cfg.age.d),cfg.age.l));
+
+  const wrap=document.createElement("div"); wrap.className="chips";
+  cfg.m.forEach(mt=>wrap.appendChild(chipEl("b3m",fmt(mt.m+mt.mb+mt.d),mt.l)));
+  if(cfg.age)wrap.appendChild(chipEl("b3m",fmt(cfg.age.m+cfg.age.mb+cfg.age.d),cfg.age.l));
+  box.appendChild(wrap);
 }
 
 /* render B4 once */
