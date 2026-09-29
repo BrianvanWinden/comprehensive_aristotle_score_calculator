@@ -52,6 +52,37 @@ footer{padding:16px 24px 30px;font-size:12px;color:#5a6b7d;max-width:1200px;marg
   border: 1px solid #ccc;
   border-radius: .5rem;
 }
+/* Selected state: mimic #proc (arrow, white, no text cursor) */
+#proc-search[aria-busy="true"] {
+  cursor: default;
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23555' stroke-width='2'/></svg>")
+    no-repeat right .65rem center;
+  background-color: #fff;
+}
+#proc-search.cleared { animation: procCleared .4s ease; }
+@keyframes procCleared { from { border-color:#c33; background:#fff5f5; } }
+
+/* Suggestions styled like the native <select> dropdown */
+#proc-search ~ datalist {
+  min-width: 100%;
+  max-height: 240px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: .5rem;
+  margin-top: .25rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+}
+#proc-search ~ datalist option {
+  padding: .35rem .7rem;
+  font: inherit;
+}
+#proc-search ~ datalist option:hover,
+#proc-search ~ datalist option:focus {
+  background: #007bff;
+  color: white;
+}
+
 </style>
 </head>
 <body>
@@ -68,11 +99,12 @@ footer{padding:16px 24px 30px;font-size:12px;color:#5a6b7d;max-width:1200px;marg
 
       <h2>1 · Primary procedure (Table B2)</h2>
       <input id="proc-search" type="text" list="proc-list"
-             placeholder="Type to search, e.g. “atrial”…”
+             placeholder="Type to search, e.g. “asd”…”
              autocomplete="off" spellcheck="false"
              aria-label="Search primary procedure">
       <datalist id="proc-list"></datalist>
-      <select id="proc" aria-label="Primary procedure"></select>
+      <select id="proc" style="display:none;" aria-hidden="true"></select>  
+      <!-- aria-label="Primary procedure" -->
       <div id="proc-info" class="info"></div>
 
 
@@ -425,7 +457,8 @@ function levelOf(s){
   if(s<=15)return 4; if(s<=20)return 5; return 6;
 }
 const LEVEL_COLORS={1:"#43a047",2:"#7cb342",3:"#f9a825",4:"#fb8c00",5:"#e53935",6:"#b71c1c"};
-const BAND_COLORS=["#9fb6c9","#7d97b3","#5c7fa3","#3f658c","#2c4d74","#0f3057"];
+const BAND_COLORS=["#43a047","#7cb342","#f9a825","#fb8c00","#e53935","#b71c1c"];
+// const BAND_COLORS=["#9fb6c9","#7d97b3","#5c7fa3","#3f658c","#2c4d74","#0f3057"];
 const BAND_STOPS=[1.5,6,8,10,15,20,25];
 
 /* build band segments once */
@@ -443,39 +476,120 @@ const BAND_STOPS=[1.5,6,8,10,15,20,25];
 
 /* fill primary procedure select */
 const proc=document.getElementById("proc");
+proc.appendChild(Object.assign(document.createElement("option"),{}));
+const blank = document.createElement("option");
+blank.value = ""; blank.textContent = "…";
+proc.appendChild(blank);
 B2R.forEach(r=>{
   const o=document.createElement("option");
   o.value=r[0]; o.textContent=r[0]+"  ·  "+r[1]; proc.appendChild(o);
 });
 proc.value="88"; // sensible default (ASO)
 
-/* Change #1: searchable Table B2 procedure picker */
-(function () {
-  const sel  = document.getElementById("proc");
-  const inp  = document.getElementById("proc-search");
-  const list = document.getElementById("proc-list");
+// /* Change #1: searchable Table B2 procedure picker */
+// (function () {
+//   const sel  = document.getElementById("proc");
+//   const inp  = document.getElementById("proc-search");
+//   const list = document.getElementById("proc-list");
 
-  // Suggest from the same source as the <select>
-  for (const o of sel.options) {
-    if (o.value === "") continue;            // skip the empty placeholder option
-    const d = document.createElement("option");
-    d.value = o.textContent;
-    list.appendChild(d);
+//   // Suggest from the same source as the <select>
+//   for (const o of sel.options) {
+//     if (o.value === "") continue;            // skip the empty placeholder option
+//     const d = document.createElement("option");
+//     d.value = o.textContent;
+//     list.appendChild(d);
+//   }
+
+//   // User picks a suggestion → mirror it into the <select> and
+//   // fire "change" so your existing handler recomputes the score.
+//   inp.addEventListener("change", () => {
+//     const hit = [...sel.options].find(o => o.textContent === inp.value);
+//     if (hit) {
+//       sel.value = hit.value;
+//       sel.dispatchEvent(new Event("change"));
+//     }
+//   });
+// })();
+
+/* Change #1b: B2 picker — select-styled when chosen; × to undo */
+(function () {
+  // const sel  = document.getElementById("proc");
+  const inp  = document.getElementById("proc-search");
+  const PLACEHOLDER = "Type to search, e.g. “asd”…";
+
+  // Own datalist, built straight from the data (identical labels to #proc)
+  const dl = document.createElement("datalist");
+  for (const r of B2R) {
+    const o = document.createElement("option");
+    o.value = r[0] + "  ·  " + r[1];
+    dl.appendChild(o);
+  }
+  document.body.appendChild(dl);
+  inp.setAttribute("list", dl.id || "");
+  dl.id = "proc-dl"; inp.setAttribute("list", dl.id);
+
+  let open = false;   // true = a search result is sitting in the box
+
+  function render() {
+    inp.setAttribute("aria-busy", open ? "true" : "false");
+    inp.placeholder = open ? "   ×" : PLACEHOLDER;
+    inp.readOnly = open;
+    dl.style.display = open ? "none" : "";
   }
 
-  // User picks a suggestion → mirror it into the <select> and
-  // fire "change" so your existing handler recomputes the score.
-  inp.addEventListener("change", () => {
+  function undo() {          // × also clears the *procedure* selection
+    inp.value = "";
+    sel.value = "";                       // "no procedure" state
+    sel.dispatchEvent(new Event("change"));
+    open = false;
+    inp.classList.add("cleared");
+    setTimeout(() => inp.classList.remove("cleared"), 500);
+    inp.focus();
+  }
+
+  inp.addEventListener("change", () => {   // user picked a suggestion
     const hit = [...sel.options].find(o => o.textContent === inp.value);
-    if (hit) {
-      sel.value = hit.value;
-      sel.dispatchEvent(new Event("change"));
+    if (!hit) return;
+    sel.value = hit.value;
+    sel.dispatchEvent(new Event("change"));   // your original handler
+    open = true;
+    render();
+  });
+
+  inp.addEventListener("keydown", e => {
+    if (e.target !== inp) return;
+    if (e.key === "Enter") {                  // typed + Enter → first match
+      const [hit] = dl.options;
+      if (hit && inp.value) {
+        e.preventDefault();
+        inp.value = hit.value;
+        inp.dispatchEvent(new Event("change"));
+      }
+    }
+    else if (e.key === "Escape" && open) {
+      e.preventDefault();
+      undo();
     }
   });
+
+  inp.addEventListener("click", e => {
+    if (!open) return;                        // closed → normal caret
+    const r = inp.getBoundingClientRect();
+    if (e.clientX > r.right - 36) undo();     // hit the ×/arrow zone
+  });
+
+  inp.addEventListener("focus", () => {
+    if (open) undo();                         // reopening the box always starts fresh
+  });
+
+  const cur = [...sel.options].find(o => o.value === sel.value);
+  if (cur) { inp.value = cur.textContent; open = true; }
+  render();
 })();
 
 
 
+/* continued code from first prompt */
 function chipEl(dataAttr,val,label){
   const lab=document.createElement("label"); lab.className="chip";
   const cb=document.createElement("input"); cb.type="checkbox";
