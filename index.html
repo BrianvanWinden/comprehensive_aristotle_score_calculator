@@ -6,11 +6,13 @@
   <title>Comprehensive Aristotle Score Calculator</title>
   <link rel="stylesheet" href="style/style.css">
   <link rel="stylesheet" href="style/dropdown.css">
+  <link rel="shortcut icon" href="documentation/Hartcentrum.svg"/>
 </head>
 <body>
 <header>
   <h1>Comprehensive Aristotle Score</h1>
-  <p class="sub">Complexity-adjusted score for congenital heart surgery — Lacour-Gayet et&nbsp;al., Eur J Cardiothorac Surg 2004;25:911–924</p>
+  <!-- <p class="sub">Complexity-adjusted score for congenital heart surgery — Lacour-Gayet et&nbsp;al., Eur J Cardiothorac Surg 2004;25:911–924</p> -->
+  <p class="sub">Independent implementation of the published complexity-adjusted Aristotle score for congenital heart surgery</p>
 </header>
 <main>
   <form id="form" onsubmit="return false">
@@ -56,9 +58,18 @@
   </aside>
 </main>
 <footer>
-  Source: Lacour-Gayet F, Clarke D, Jacobs J, et&nbsp;al. The Aristotle score: a complexity-adjusted method to evaluate surgical results.
+  <bolt>Source & intended use</bolt>
+  Based on Lacour-Gayet F, Clarke D, Jacobs J, et al. The Aristotle score: a complexity-adjusted method to evaluate surgical results. European Journal of Cardio-Thoracic Surgery. 2004;25(6):911–924. <a href="https://doi.org/10.1016/j.ejcts.2004.03.027">doi:10.1016/j.ejcts.2004.03.027</a>.<br>
+  <br>
+  This is an <bolt>independent implementation of the 2004 published version of the Aristotle Score</bolt>,intended for <bolt>retrospective educational and research use</bolt>, including documentation and database analysis of operative complexity. 
+  It is not intended for prospective patient risk assessment, diagnosis, treatment recommendations, operative planning, or other clinical decision-making, and does not replace clinical judgment or current institutional guidance.   <br>
+  <br>
+  The Aristotle Score was described as a developing methodology in the original publication, with validation and future updates still in progress at that time. This implementation may therefore not reflect subsequent revisions or current Aristotle Committee scoring.<br>
+  <br>This tool is not affiliated with, sponsored by, endorsed by, or an official product of the Aristotle Committee, EACTS, STS, ECHSA, or the authors of the original publication.
+
+  <!-- Source: Lacour-Gayet F, Clarke D, Jacobs J, et&nbsp;al. The Aristotle score: a complexity-adjusted method to evaluate surgical results.
   <i>European Journal of Cardio-Thoracic Surgery</i> 2004;25(6):911–924. <a href="https://doi.org/10.1016/j.ejcts.2004.03.027">doi:10.1016/j.ejcts.2004.03.027</a>.<br>
-  Educational reference tool. Based on a 2004 expert-consensus scoring system whose validation was still underway at publication [see paper §6.2]. Not a substitute for clinical judgement or the official Aristotle Committee materials.
+  Educational reference tool. Based on a 2004 expert-consensus scoring system whose validation was still underway at publication [see paper §6.2]. Not a substitute for clinical judgement or the official Aristotle Committee materials. -->
 </footer>
 <script>
 "use strict";
