@@ -20,8 +20,8 @@
       <div id="proc-info" class="info"></div>
     </section>
 
-    <section class="card" id="sec-specific">
-    <!-- Old code, not sure what the hidden does: <section class="card" id="sec-specific" hidden> -->
+    <section class="card" id="sec-specific" >
+    <!-- <section class="card" id="sec-specific" hidden> -->
       <h2>2 · Procedure-specific factors (Table B3)</h2>
       <div id="specifics"></div>
     </section>
@@ -31,7 +31,7 @@
       <p class="hint">Tick factor(s) present. Clinical factors apply when present within 48&nbsp;h prior to surgery unless a definition says otherwise. Each factor adds its score directly.</p>
       <div id="b4body"></div>
     </section>
-  
+
   </form>
 
   <aside>
@@ -52,7 +52,7 @@
     <div class="row-btns">
       <button type="button" id="btn-reset">Reset</button>
       <button type="button" class="secondary" id="btn-copy">Copy summary</button>
-    </div>  
+    </div>
   </aside>
 </main>
 <footer>
@@ -162,18 +162,11 @@ function Dropdown(root, options, opts = {}) {
     input.value = selected ?? '';
   }
 
-  /* Notify the page: run onChange, then always fire a bubbling "change" event
-     so the form-level listener recomputes exactly as it does for the other cards. */
-  function emit() {
-    try { opts.onChange?.(selected); }
-    finally { root.dispatchEvent(new CustomEvent('change', { bubbles: true, detail: { value: selected } })); }
-  }
-
   function choose(label) {
     selected = label;
     syncButton();
     closeMenu();
-    emit();
+    opts.onChange?.(label);
   }
 
   function clear() {
@@ -182,7 +175,7 @@ function Dropdown(root, options, opts = {}) {
     syncButton();
     closeMenu();
     input.focus();
-    emit();
+    opts.onChange?.(null);
   }
 
   /* Programmatic set (does not call onChange) */
@@ -201,7 +194,7 @@ function Dropdown(root, options, opts = {}) {
 
   input.addEventListener('input', () => {
     typed = true;
-    if (selected !== null) { selected = null; syncButton(); emit(); }
+    if (selected !== null) { selected = null; syncButton(); opts.onChange?.(null); }
     if (isOpen) refresh(); else openMenu();
   });
   input.addEventListener('focus', () => { if (selected) input.select(); });
@@ -278,7 +271,7 @@ const procDD=Dropdown(document.getElementById("proc-dd"),B2R.map(procLabel),{
   initial:procLabel(byNo[DEFAULT_PROC]),
   onChange:label=>{
     procNo=label?procByLabel.get(label):null;
-    renderSpecifics(); // the score itself is recomputed by the form's "change" listener below
+    renderSpecifics(); recompute();
   }
 });
 
@@ -302,7 +295,7 @@ function renderSpecifics(){
   if(!cfg){ 
     const h=document.createElement("div"); h.className="hint"; h.textContent="This procedure does not require additional procedure-specific information."; box.appendChild(h);
   }
-
+  
   if(cfg.ovr&&cfg.ovr.length){
     const h=document.createElement("div"); h.className="subhead"; h.textContent="Score as primary procedure (override)"; box.appendChild(h);
     const sel=document.createElement("select"); sel.id="ovr";
