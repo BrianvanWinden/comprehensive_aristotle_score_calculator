@@ -279,10 +279,11 @@ const BAND_STOPS=[1.5,6,8,10,15,20,25];
 })();
 
 /* ================= Primary procedure picker (Table B2) ================= */
-const DEFAULT_PROC=88; // ASO
+const DEFAULT_PROC= null; // ASO
 let procNo=DEFAULT_PROC; // currently selected B2 procedure number, or null
 const procLabel=r=>r[0]+" · "+r[1];
 const procByLabel=new Map(B2R.map(r=>[procLabel(r),r[0]]));
+
 const procDD=Dropdown(document.getElementById("proc-dd"),B2R.map(procLabel),{
   placeholder:"Type to search, e.g. “TCPC”…",
   label:"Primary procedure",
@@ -422,10 +423,12 @@ function recompute(){
 document.getElementById("form").addEventListener("input",recompute);
 document.getElementById("form").addEventListener("change",recompute);
 
-document.getElementById("btn-reset").addEventListener("click",()=>{
-  document.querySelectorAll("input[type=checkbox]").forEach(c=>c.checked=false);
-  procNo=DEFAULT_PROC; procDD.set(procLabel(byNo[DEFAULT_PROC]));
-  renderSpecifics(); recompute();
+document.getElementById("btn-reset").addEventListener("click", () => {
+  document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
+  procNo = DEFAULT_PROC;
+  procDD.clear();
+  renderSpecifics();
+  recompute();
 });
 
 document.getElementById("btn-copy").addEventListener("click",()=>{
