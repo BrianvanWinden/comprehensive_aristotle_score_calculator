@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style/dropdown.css"> <!-- the dropdown -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Searchable dropdown</title>
+
+  <style></style>
+
+</head>
+<body>
+
+<div class="demo">
+  <label for="city">Destination</label>
+  <div id="city"></div>
+  <output id="result" aria-live="polite">Nothing selected</output>
+</div>
+
+<script>
+/**
+ * Dropdown(root, options, { placeholder, label, onChange })
+ * - root:    an empty element the dropdown is built into
+ * - options: array of strings
+ * - onChange(value | null) is called on select / deselect
+ */
+function Dropdown(root, options, opts = {}) {
+  const id = 'dd-' + Math.random().toString(36).slice(2, 8);
+  let selected = null, isOpen = false, typed = false, active = -1, items = [];
+
+  // --- Build DOM
+  root.classList.add('dd');
+  const field = document.createElement('div');
+  field.className = 'dd-field';
+
+  const input = document.createElement('input');
+  input.className = 'dd-input';
+  input.type = 'text';
+  input.autocomplete = 'off';
+  input.placeholder = opts.placeholder || 'Select…';
+  input.setAttribute('role', 'combobox');
+  input.setAttribute('aria-autocomplete', 'list');
+  input.setAttribute('aria-expanded', 'false');
+  input.setAttribute('aria-controls', id + '-list');
+  input.setAttribute('aria-label', opts.label || input.placeholder);
+
+  const btn = document.createElement('button');
+  btn.className = 'dd-btn';
+  btn.type = 'button';
+  btn.tabIndex = -1; // keyboard users have the input itself
+  btn.innerHTML = '<span class="dd-icon"><i></i><i></i></span>';
+
+  const menu = document.createElement('ul');
+  menu.className = 'dd-menu';
+  menu.id = id + '-list';
+  menu.setAttribute('role', 'listbox');
+
+  field.append(input, btn);
+  root.append(field, menu);
+  syncButton();
+
+  // --- Rendering
+  function refresh() {
+    const q = typed ? input.value.trim().toLowerCase() : '';
+    items = options.filter(o => o.toLowerCase().includes(q));
+    menu.replaceChildren();
+
+    if (!items.length) {
+      const li = document.createElement('li');
+      li.className = 'dd-empty';
+      li.textContent = 'No matches';
+      menu.append(li);
+    }
+
+    items.forEach((label, i) => {
+      const li = document.createElement('li');
+      li.id = `${id}-${i}`;
+      li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', String(label === selected));
+      const at = q ? label.toLowerCase().indexOf(q) : -1;
+      if (at >= 0) {
+        const mark = document.createElement('mark');
+        mark.textContent = label.slice(at, at + q.length);
+        li.append(label.slice(0, at), mark, label.slice(at + q.length));
+      } else {
+        li.textContent = label;
+      }
+      li.addEventListener('mousedown', e => e.preventDefault()); // keep focus in the input
+      li.addEventListener('click', () => choose(label));
+      li.addEventListener('mousemove', () => { if (active !== i) { active = i; paint(false); } });
+      menu.append(li);
+    });
+
+    active = items.length ? (!typed && selected ? Math.max(0, items.indexOf(selected)) : 0) : -1;
+    paint();
+  }
+
+  function paint(scroll = true) {
+    [...menu.children].forEach((li, i) => li.toggleAttribute('data-active', i === active));
+    if (active >= 0) {
+      input.setAttribute('aria-activedescendant', `${id}-${active}`);
+      if (scroll) menu.children[active].scrollIntoView({ block: 'nearest' });
+    } else {
+      input.removeAttribute('aria-activedescendant');
+    }
+  }
+
+  function syncButton() {
+    root.toggleAttribute('data-has-value', selected !== null);
+    btn.setAttribute('aria-label', selected !== null ? 'Clear selection' : 'Toggle options');
+  }
+
+  // --- State changes
+  function openMenu() {
+    if (isOpen) return;
+    isOpen = true;
+    root.setAttribute('data-open', '');
+    input.setAttribute('aria-expanded', 'true');
+    refresh();
+  }
+
+  function closeMenu() {
+    isOpen = false;
+    typed = false;
+    root.removeAttribute('data-open');
+    input.setAttribute('aria-expanded', 'false');
+    input.removeAttribute('aria-activedescendant');
+    input.value = selected ?? '';
+  }
+
+  function choose(label) {
+    selected = label;
+    syncButton();
+    closeMenu();
+    opts.onChange?.(label);
+  }
+
+  function clear() {
+    selected = null;
+    typed = false;
+    input.value = '';
+    syncButton();
+    closeMenu();
+    input.focus();
+    opts.onChange?.(null);
+  }
+
+  function move(step) {
+    if (!items.length) return;
+    active = (active + step + items.length) % items.length;
+    paint();
+  }
+
+  // --- Events
+  input.addEventListener('input', () => {
+    typed = true;
+    if (selected !== null) { selected = null; syncButton(); opts.onChange?.(null); }
+    if (isOpen) refresh(); else openMenu();
+  });
+
+  input.addEventListener('focus', () => { if (selected) input.select(); });
+  input.addEventListener('click', openMenu);
+  input.addEventListener('blur', closeMenu);
+
+  input.addEventListener('keydown', e => {
+    switch (e.key) {
+      case 'ArrowDown': e.preventDefault(); isOpen ? move(1) : openMenu(); break;
+      case 'ArrowUp':   e.preventDefault(); isOpen ? move(-1) : openMenu(); break;
+      case 'Enter':
+        if (isOpen) { e.preventDefault(); if (active >= 0) choose(items[active]); }
+        break;
+      case 'Escape':
+        if (isOpen) { e.preventDefault(); closeMenu(); if (selected) input.select(); }
+        break;
+      case 'Tab': closeMenu(); break;
+    }
+  });
+
+  btn.addEventListener('mousedown', e => e.preventDefault());
+  btn.addEventListener('click', () => {
+    if (selected !== null) return clear();
+    input.focus();
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  return { get value() { return selected; }, clear };
+}
+
+// --- Demo
+const cities = [
+  'Amsterdam', 'Antwerp', 'Barcelona', 'Berlin', 'Bordeaux', 'Brussels', 'Copenhagen',
+  'Dublin', 'Edinburgh', 'Ghent', 'Hamburg', 'Lisbon', 'Lyon', 'Madrid', 'Milan',
+  'Munich', 'Oslo', 'Paris', 'Prague', 'Rotterdam', 'Utrecht', 'Vienna'
+];
+const result = document.getElementById('result');
+Dropdown(document.getElementById('city'), cities, {
+  placeholder: 'Choose a city',
+  label: 'Destination',
+  onChange: v => { result.textContent = v ? `Selected: ${v}` : 'Nothing selected'; }
+});
+</script>
+</body>
+</html>
