@@ -8,11 +8,13 @@
    },
    {
     "l": "Prematurity 32–35 weeks",
-    "s": 2
+    "s": 2,
+    "excl": "prematurity"
    },
    {
     "l": "Severe prematurity, < 32 weeks",
-    "s": 4
+    "s": 4,
+    "excl": "prematurity"
    }
   ]
  },

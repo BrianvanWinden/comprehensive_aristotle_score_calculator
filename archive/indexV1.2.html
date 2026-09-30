@@ -293,12 +293,11 @@ const procDD=Dropdown(document.getElementById("proc-dd"),B2R.map(procLabel),{
   }
 });
 
-function chipEl(dataAttr,val,label,def,excl){
+function chipEl(dataAttr,val,label,def){
   const lab=document.createElement("label"); lab.className="chip";
   if(def&&String(def).trim())lab.dataset.def=String(def).trim(); // definition shown on hover (see .chip[data-def] in style.css)
   const cb=document.createElement("input"); cb.type="checkbox";
   if(dataAttr)cb.dataset[dataAttr]=val;
-  if(excl)cb.dataset.excl=excl; // mutually exclusive group name (see B4 change listener)
   lab.appendChild(cb);
   const span=document.createElement("span"); span.textContent=label; lab.appendChild(span);
   const pts=document.createElement("span"); pts.className="pts"; pts.textContent="+"+fmt(val);
@@ -351,27 +350,18 @@ function renderSpecifics(){
     const s=document.createElement("summary"); s.textContent=g.t; d.appendChild(s);
     if(g.items){
       const wrap=document.createElement("div"); wrap.className="chips";
-      g.items.forEach(it=>wrap.appendChild(chipEl("b4",it.s,it.l,it.def,it.excl)));
+      g.items.forEach(it=>wrap.appendChild(chipEl("b4",it.s,it.l,it.def)));
       d.appendChild(wrap);
     }
     if(g.subs)g.subs.forEach(sub=>{
       const sh=document.createElement("div"); sh.className="subhead"; sh.textContent=sub.n; d.appendChild(sh);
       const wrap=document.createElement("div"); wrap.className="chips";
-      sub.items.forEach(it=>wrap.appendChild(chipEl("b4",it.s,it.l,it.def,it.excl)));
+      sub.items.forEach(it=>wrap.appendChild(chipEl("b4",it.s,it.l,it.def)));
       d.appendChild(wrap);
     });
     body.appendChild(d);
   });
 })();
-
-/* mutually exclusive B4 factors: ticking one un-ticks the others in the same "excl" group */
-document.getElementById("b4body").addEventListener("change",e=>{
-  const t=e.target;
-  if(!t.checked||!t.dataset.excl)return;
-  document.querySelectorAll("#b4body input[data-excl]").forEach(cb=>{
-    if(cb!==t&&cb.dataset.excl===t.dataset.excl)cb.checked=false;
-  });
-});
 
 /* main recompute */
 function recompute(){
