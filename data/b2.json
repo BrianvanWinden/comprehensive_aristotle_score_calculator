@@ -1,1017 +1,1017 @@
 [
  [
   1,
-  "PFO, Primary closure",
-  1,
-  1,
-  1
- ],
- [
-  2,
-  "ASD repair, Primary closure",
-  1,
-  1,
-  1
- ],
- [
-  3,
-  "ASD repair, Patch",
-  1,
-  1,
-  1
- ],
- [
-  4,
-  "ASD, Common atrium (Single atrium), Septation",
-  1,
-  1,
-  1.8
- ],
- [
-  5,
-  "ASD creation/enlargement",
-  1,
-  2,
-  1
- ],
- [
-  6,
-  "ASD partial closure",
-  1,
-  1,
-  1
- ],
- [
-  7,
-  "Atrial septal fenestration",
-  2,
-  2,
-  1
- ],
- [
-  8,
-  "VSD repair, Primary closure",
-  2,
-  2,
-  2
- ],
- [
-  9,
-  "VSD repair, Patch",
-  2,
-  2,
-  2
- ],
- [
-  10,
-  "VSD, Multiple, Repair",
-  3,
-  2.5,
-  3.5
- ],
- [
-  11,
-  "VSD creation/enlargement",
-  3,
-  3,
-  3
- ],
- [
-  12,
-  "Ventricular septal fenestration",
-  3,
-  2,
-  2.5
- ],
- [
-  13,
-  "AVC (AVSD) repair, Complete (CAVSD)",
-  3,
-  3,
-  3
- ],
- [
-  14,
-  "AVC (AVSD) repair, Intermediate (transitional)",
-  1.5,
-  1.5,
-  2
- ],
- [
-  15,
-  "AVC (AVSD) repair, Partial (incomplete) (PAVSD)",
-  1,
-  1,
-  2
- ],
- [
-  16,
-  "AP window repair",
-  2,
-  2,
-  2
- ],
- [
-  17,
-  "Pulmonary artery origin from ascending aorta (hemitruncus) repair",
-  3,
-  3,
-  3
- ],
- [
-  18,
-  "Truncus arteriosus repair",
-  4,
-  3,
-  4
- ],
- [
-  19,
-  "Valvuloplasty, Truncal valve",
-  2,
-  2,
-  3
- ],
- [
-  20,
-  "Valve replacement, Truncal valve",
-  2,
-  2,
-  2
- ],
- [
-  21,
-  "PAPVC repair",
-  2,
-  1,
-  2
- ],
- [
-  22,
-  "PAPVC, Scimitar, Repair",
-  3,
-  2,
-  3
- ],
- [
-  23,
-  "TAPVC repair",
-  3,
-  3,
-  3
- ],
- [
-  24,
-  "Cor triatriatum repair",
-  2,
-  2,
-  2.8
- ],
- [
-  25,
-  "Pulmonary venous stenosis repair",
-  4,
-  4,
-  4
- ],
- [
-  26,
-  "Atrial baffle procedure (non-Mustard, non-Senning)",
-  2.8,
-  2,
-  3
- ],
- [
-  27,
-  "Anomalous systemic venous connection repair",
-  2,
-  2,
-  3
- ],
- [
-  28,
-  "Systemic venous stenosis repair",
-  3,
-  2,
-  3
- ],
- [
-  29,
-  "TOF repair, No ventriculotomy",
-  3,
-  2,
-  3
- ],
- [
-  30,
-  "TOF repair, Ventriculotomy, Non-transanular patch",
-  2.5,
-  2,
-  3
- ],
- [
-  31,
-  "TOF repair, Ventriculotomy, Transanular patch",
-  3,
-  2,
-  3
- ],
- [
-  32,
-  "TOF repair, RV-PA conduit",
-  3,
-  2,
-  3
- ],
- [
-  33,
-  "TOF—AVC (AVSD) repair",
-  4,
-  3,
-  4
- ],
- [
-  34,
-  "TOF—Absent pulmonary valve repair",
-  3,
-  3,
-  3.3
- ],
- [
-  35,
-  "Pulmonary atresia—VSD (including TOF, PA) repair",
-  3,
-  3,
-  3
- ],
- [
-  36,
-  "Pulmonary atresia—VSD—MAPCA (pseudotruncus) repair",
-  4,
-  3,
-  4
- ],
- [
-  37,
-  "Unifocalization MAPCA (s)",
-  4,
-  3,
-  4
- ],
- [
-  38,
-  "Occlusion MAPCA (s)",
-  2,
-  2,
-  3
- ],
- [
-  39,
-  "Valvuloplasty, Tricuspid",
-  2,
-  2,
-  3
- ],
- [
-  40,
-  "Valve replacement, Tricuspid (TVR)",
-  2.5,
-  2,
-  3
- ],
- [
-  41,
-  "Valve closure, Tricuspid (exclusion, univentricular)",
-  4,
-  3,
-  2
- ],
- [
-  42,
-  "Valve excision, Tricuspid (no replacement)",
-  3,
-  3,
-  1
- ],
- [
-  43,
-  "RVOT procedure",
-  2,
-  2,
-  2.5
- ],
- [
-  44,
   "1 1/2 ventricular repair",
   3,
   3,
   3
  ],
  [
-  45,
-  "PA reconstruction (plasty), Main (trunk)",
   2,
-  2,
-  2
- ],
- [
-  46,
-  "PA reconstruction (plasty), Branch, Central",
-  2.8,
-  2,
-  3
- ],
- [
-  47,
-  "PA reconstruction (plasty), Branch, Peripheral",
-  2.8,
-  2,
-  3
- ],
- [
-  48,
-  "DCRV repair",
-  2,
-  2,
-  3
- ],
- [
-  49,
-  "Conduit reoperation",
-  3,
-  2,
-  3
- ],
- [
-  50,
-  "Valvuloplasty, Pulmonic",
-  1.8,
-  1.8,
-  2
- ],
- [
-  51,
-  "Valve replacement, Pulmonic (PVR)",
-  2,
-  2,
-  2.5
- ],
- [
-  52,
-  "Conduit placement, RV to PA",
-  2.5,
-  2,
-  3
- ],
- [
-  53,
-  "Conduit placement, LV to PA",
-  3,
-  2,
-  3
- ],
- [
-  54,
-  "Valvuloplasty, Aortic",
-  3,
-  2,
-  3
- ],
- [
-  55,
-  "Valve replacement, Aortic (AVR), Mechanical",
-  2,
-  2,
-  3
- ],
- [
-  56,
-  "Valve replacement, Aortic (AVR), Bioprosthetic",
-  2,
-  2,
-  3
- ],
- [
-  57,
-  "Valve replacement, Aortic (AVR), Homograft",
-  3,
-  2,
-  3.5
- ],
- [
-  58,
-  "Aortic root replacement",
-  2.5,
-  2,
-  3.5
- ],
- [
-  59,
-  "Aortic root replacement, Mechanical",
-  3.3,
-  2,
-  3.5
- ],
- [
-  60,
-  "Aortic root replacement, Homograft",
-  3.5,
-  2,
-  4
- ],
- [
-  61,
-  "Ross procedure",
-  4,
-  2.3,
-  4
- ],
- [
-  62,
-  "Konno procedure",
-  4,
-  3,
-  4
- ],
- [
-  63,
-  "Ross–Konno procedure",
-  4.5,
-  3,
-  5
- ],
- [
-  64,
-  "Aortic stenosis, Subvalvar, Repair",
-  2,
-  1.8,
-  2.5
- ],
- [
-  65,
-  "Aortic stenosis, Supravalvar, Repair",
-  2.5,
-  2,
-  3
- ],
- [
-  66,
-  "Sinus of Valsalva, Aneurysm repair",
-  2.5,
-  2,
-  3
- ],
- [
-  67,
-  "LV to aorta tunnel repair",
-  3,
-  2.3,
-  3
- ],
- [
-  68,
-  "Valvuloplasty, Mitral",
-  3,
-  2,
-  3
- ],
- [
-  69,
-  "Mitral stenosis, Supravalvar mitral ring repair",
-  3,
-  2,
-  3
- ],
- [
-  70,
-  "Valve replacement, Mitral (MVR)",
-  2.5,
-  2,
-  3
- ],
- [
-  71,
-  "Norwood procedure",
-  5,
-  4.5,
-  5
- ],
- [
-  72,
-  "HLHS biventricular repair",
-  5,
-  5,
-  5
- ],
- [
-  73,
-  "Transplant, Heart",
-  3,
-  3.3,
-  3
- ],
- [
-  74,
-  "Transplant, Heart and lung(s)",
-  4,
-  5,
-  4.3
- ],
- [
-  75,
-  "Partial left ventriculectomy (LV volume reduction) (Batista)",
-  4,
-  4,
-  4
- ],
- [
-  76,
-  "Pericardial drainage procedure",
-  1,
-  1,
-  1
- ],
- [
-  77,
-  "Pericardiectomy",
-  2,
-  2,
-  2
- ],
- [
-  78,
-  "Fontan, Atrio-pulmonary connection",
-  3,
-  3,
-  3
- ],
- [
-  79,
-  "Fontan, Atrio-ventricular connection",
-  3,
-  3,
-  3
- ],
- [
-  80,
-  "Fontan, TCPC, Lateral tunnel, Fenestrated",
-  3,
-  3,
-  3
- ],
- [
-  81,
-  "Fontan, TCPC, Lateral tunnel, Non-fenestrated",
-  3,
-  3,
-  3
- ],
- [
-  82,
-  "Fontan, TCPC, External conduit, Fenestrated",
-  3,
-  3,
-  3
- ],
- [
-  83,
-  "Fontan, TCPC, External conduit, Non-fenestrated",
-  3,
-  3,
-  3
- ],
- [
-  84,
-  "Congenitally corrected TGA, Double switch (atrial switch + ASO)",
-  5,
-  3.8,
-  5
- ],
- [
-  85,
-  "Congenitally corrected TGA, Atrial switch and Rastelli",
-  4,
-  3,
-  4
- ],
- [
-  86,
-  "Congenitally corrected TGA, VSD closure",
-  3,
-  3,
-  3
- ],
- [
-  87,
-  "Congenitally corrected TGA, VSD closure and LV to PA conduit",
-  4,
-  3,
-  4
- ],
- [
-  88,
-  "Arterial switch operation (ASO)",
-  3.5,
-  3,
-  3.5
- ],
- [
-  89,
-  "Arterial switch operation (ASO) and VSD repair",
-  4,
-  3,
-  4
- ],
- [
-  90,
-  "Senning",
-  3,
-  2.5,
-  3
- ],
- [
-  91,
-  "Mustard",
-  3,
-  3,
-  3
- ],
- [
-  92,
-  "Rastelli",
-  3,
-  3,
-  4
- ],
- [
-  93,
-  "REV",
-  4,
-  3,
-  4
- ],
- [
-  94,
-  "DORV, Intraventricular tunnel repair",
-  3.3,
-  3,
-  4
- ],
- [
-  95,
-  "DOLV repair",
-  4,
-  3,
-  4
- ],
- [
-  96,
-  "Anomalous origin of coronary artery from pulmonary artery repair",
-  3,
-  3,
-  4
- ],
- [
-  97,
-  "Coronary artery fistula ligation",
-  1,
-  2,
-  1
- ],
- [
-  98,
-  "Coronary artery bypass",
-  2.5,
-  2,
-  3
- ],
- [
-  99,
-  "Coarctation repair, End to end",
-  2,
-  2,
-  2
- ],
- [
-  100,
-  "Coarctation repair, End to end, Extended",
-  3,
-  2,
-  3
- ],
- [
-  101,
-  "Coarctation repair, Subclavian flap",
-  2,
-  2,
-  2
- ],
- [
-  102,
-  "Coarctation repair, Patch aortoplasty",
-  2,
-  2,
-  2
- ],
- [
-  103,
-  "Coarctation repair, Interposition graft",
-  2.8,
-  2,
-  3
- ],
- [
-  104,
-  "Aortic arch repair",
-  2,
-  2,
-  3
- ],
- [
-  105,
-  "Interrupted aortic arch repair",
-  3.8,
-  3,
-  4
- ],
- [
-  106,
-  "PDA closure, Surgical",
-  1,
-  1,
-  1
- ],
- [
-  107,
-  "Vascular ring repair",
-  2,
-  2,
-  2
- ],
- [
-  108,
-  "Pulmonary artery sling repair",
-  3,
-  3,
-  3
- ],
- [
-  109,
-  "Aortic aneurysm repair",
-  3,
-  2.8,
-  3
- ],
- [
-  110,
-  "Aortic dissection repair",
-  4,
-  3,
-  4
- ],
- [
-  111,
-  "Lung biopsy",
-  1.5,
-  2,
-  1.5
- ],
- [
-  112,
-  "Transplant, Lung(s)",
-  4,
-  4,
-  4
- ],
- [
-  113,
-  "Pectus repair",
-  2,
-  1,
-  2.3
- ],
- [
-  114,
-  "Pacemaker implantation, Permanent",
-  1,
-  1,
-  1
- ],
- [
-  115,
-  "Pacemaker procedure",
-  1,
-  1,
-  1
- ],
- [
-  116,
-  "ICD (AICD) implantation",
-  1.5,
-  1,
-  1.5
- ],
- [
-  117,
-  "ICD (AICD) procedure",
-  1.5,
-  1,
-  1.5
- ],
- [
-  118,
-  "Arrhythmia surgery — atrial, Surgical ablation",
-  3,
-  2,
-  3
- ],
- [
-  119,
-  "Shunt, Systemic to pulmonary, Modified Blalock-Taussig (MBTS)",
-  2,
-  2,
-  2.3
- ],
- [
-  120,
-  "Shunt, Systemic to pulmonary, Central (aorta or main PA)",
-  2,
-  2,
-  2.8
- ],
- [
-  121,
-  "Shunt, Ligation and takedown",
-  1.5,
-  1,
-  1
- ],
- [
-  122,
-  "PA banding (PAB)",
-  2,
-  2,
-  2
- ],
- [
-  123,
-  "PA debanding",
-  2,
-  2,
-  2
- ],
- [
-  124,
-  "Damus–Kaye–Stansel (DKS), AP anastomosis without arch reconstruction",
-  3,
-  3,
-  3.5
- ],
- [
-  125,
-  "Bidirectional cavopulmonary anastomosis (bidirectional Glenn)",
-  2.3,
-  2,
-  2.5
- ],
- [
-  126,
-  "Glenn (unidirectional cavopulmonary anastomosis)",
-  2.5,
-  2,
-  2.5
- ],
- [
-  127,
-  "Bilateral bidirectional cavopulmonary anastomosis (BBDCPA)",
-  2.5,
-  2,
-  3
- ],
- [
-  128,
-  "Hemifontan",
-  3,
-  2,
-  3
- ],
- [
-  129,
-  "Aneurysm, Ventricular, Right, Repair",
-  3,
-  2,
-  3
- ],
- [
-  130,
-  "Aneurysm, Ventricular, Left, Repair",
-  3,
-  2.5,
-  3.5
- ],
- [
-  131,
   "Aneurysm, Pulmonary artery, Repair",
   3,
   2,
   3
  ],
  [
-  132,
-  "Cardiac tumor resection",
+  3,
+  "Aneurysm, Ventricular, Left, Repair",
+  3,
+  2.5,
+  3.5
+ ],
+ [
+  4,
+  "Aneurysm, Ventricular, Right, Repair",
   3,
   2,
   3
  ],
  [
-  133,
-  "Ligation, Pulmonary artery",
+  5,
+  "Anomalous origin of coronary artery from pulmonary artery repair",
+  3,
+  3,
+  4
+ ],
+ [
+  6,
+  "Anomalous systemic venous connection repair",
+  2,
+  2,
+  3
+ ],
+ [
+  7,
+  "Aortic aneurysm repair",
+  3,
+  2.8,
+  3
+ ],
+ [
+  8,
+  "Aortic arch repair",
+  2,
+  2,
+  3
+ ],
+ [
+  9,
+  "Aortic dissection repair",
+  4,
+  3,
+  4
+ ],
+ [
+  10,
+  "Aortic root replacement",
+  2.5,
+  2,
+  3.5
+ ],
+ [
+  11,
+  "Aortic root replacement, Homograft",
+  3.5,
+  2,
+  4
+ ],
+ [
+  12,
+  "Aortic root replacement, Mechanical",
+  3.3,
+  2,
+  3.5
+ ],
+ [
+  13,
+  "Aortic stenosis, Subvalvar, Repair",
+  2,
+  1.8,
+  2.5
+ ],
+ [
+  14,
+  "Aortic stenosis, Supravalvar, Repair",
+  2.5,
+  2,
+  3
+ ],
+ [
+  15,
+  "AP window repair",
+  2,
+  2,
+  2
+ ],
+ [
+  16,
+  "Arrhythmia surgery — atrial, Surgical ablation",
+  3,
+  2,
+  3
+ ],
+ [
+  17,
+  "Arterial switch operation (ASO)",
+  3.5,
+  3,
+  3.5
+ ],
+ [
+  18,
+  "Arterial switch operation (ASO) and VSD repair",
+  4,
+  3,
+  4
+ ],
+ [
+  19,
+  "ASD creation/enlargement",
+  1,
+  2,
+  1
+ ],
+ [
+  20,
+  "ASD partial closure",
+  1,
+  1,
+  1
+ ],
+ [
+  21,
+  "ASD repair, Patch",
+  1,
+  1,
+  1
+ ],
+ [
+  22,
+  "ASD repair, Primary closure",
+  1,
+  1,
+  1
+ ],
+ [
+  23,
+  "ASD, Common atrium (Single atrium), Septation",
+  1,
+  1,
+  1.8
+ ],
+ [
+  24,
+  "Atrial baffle procedure (non-Mustard, non-Senning)",
+  2.8,
+  2,
+  3
+ ],
+ [
+  25,
+  "Atrial septal fenestration",
+  2,
+  2,
+  1
+ ],
+ [
+  26,
+  "AVC (AVSD) repair, Complete (CAVSD)",
+  3,
+  3,
+  3
+ ],
+ [
+  27,
+  "AVC (AVSD) repair, Intermediate (transitional)",
   1.5,
-  2,
-  1.5
- ],
- [
-  134,
-  "Pulmonary embolectomy",
-  3,
-  3,
+  1.5,
   2
  ],
  [
-  135,
-  "Pleural drainage procedure",
-  0.5,
-  0.5,
-  0.5
+  28,
+  "AVC (AVSD) repair, Partial (incomplete) (PAVSD)",
+  1,
+  1,
+  2
  ],
  [
-  136,
-  "Ligation, Thoracic duct",
-  1,
+  29,
+  "Bidirectional cavopulmonary anastomosis (bidirectional Glenn)",
+  2.3,
   2,
-  1
+  2.5
  ],
  [
-  137,
-  "Decortication",
-  1,
-  1,
+  30,
+  "Bilateral bidirectional cavopulmonary anastomosis (BBDCPA)",
+  2.5,
+  2,
   3
  ],
  [
-  138,
-  "Intra-aortic balloon pump (IABP) insertion",
-  0.5,
-  1,
-  0.5
- ],
- [
-  139,
-  "ECMO procedure",
-  2,
-  3,
-  1
- ],
- [
-  140,
-  "Right/left heart assist device procedure",
-  2,
-  3,
-  2
- ],
- [
-  141,
+  31,
   "Bronchoscopy",
   0.5,
   0.5,
   0.5
  ],
  [
-  142,
-  "Diaphragm plication",
+  32,
+  "Cardiac tumor resection",
+  3,
+  2,
+  3
+ ],
+ [
+  33,
+  "Coarctation repair, End to end",
+  2,
+  2,
+  2
+ ],
+ [
+  34,
+  "Coarctation repair, End to end, Extended",
+  3,
+  2,
+  3
+ ],
+ [
+  35,
+  "Coarctation repair, Interposition graft",
+  2.8,
+  2,
+  3
+ ],
+ [
+  36,
+  "Coarctation repair, Patch aortoplasty",
+  2,
+  2,
+  2
+ ],
+ [
+  37,
+  "Coarctation repair, Subclavian flap",
+  2,
+  2,
+  2
+ ],
+ [
+  38,
+  "Conduit placement, LV to PA",
+  3,
+  2,
+  3
+ ],
+ [
+  39,
+  "Conduit placement, RV to PA",
+  2.5,
+  2,
+  3
+ ],
+ [
+  40,
+  "Conduit reoperation",
+  3,
+  2,
+  3
+ ],
+ [
+  41,
+  "Congenitally corrected TGA, Atrial switch and Rastelli",
+  4,
+  3,
+  4
+ ],
+ [
+  42,
+  "Congenitally corrected TGA, Double switch (atrial switch + ASO)",
+  5,
+  3.8,
+  5
+ ],
+ [
+  43,
+  "Congenitally corrected TGA, VSD closure",
+  3,
+  3,
+  3
+ ],
+ [
+  44,
+  "Congenitally corrected TGA, VSD closure and LV to PA conduit",
+  4,
+  3,
+  4
+ ],
+ [
+  45,
+  "Cor triatriatum repair",
+  2,
+  2,
+  2.8
+ ],
+ [
+  46,
+  "Coronary artery bypass",
+  2.5,
+  2,
+  3
+ ],
+ [
+  47,
+  "Coronary artery fistula ligation",
   1,
   2,
   1
  ],
  [
-  143,
+  48,
+  "Damus–Kaye–Stansel (DKS), AP anastomosis without arch reconstruction",
+  3,
+  3,
+  3.5
+ ],
+ [
+  49,
+  "DCRV repair",
+  2,
+  2,
+  3
+ ],
+ [
+  50,
+  "Decortication",
+  1,
+  1,
+  3
+ ],
+ [
+  51,
   "Delayed sternal closure",
   0.5,
   0.5,
   0.5
  ],
  [
-  144,
+  52,
+  "Diaphragm plication",
+  1,
+  2,
+  1
+ ],
+ [
+  53,
+  "DOLV repair",
+  4,
+  3,
+  4
+ ],
+ [
+  54,
+  "DORV, Intraventricular tunnel repair",
+  3.3,
+  3,
+  4
+ ],
+ [
+  55,
+  "ECMO procedure",
+  2,
+  3,
+  1
+ ],
+ [
+  56,
+  "Fontan, Atrio-pulmonary connection",
+  3,
+  3,
+  3
+ ],
+ [
+  57,
+  "Fontan, Atrio-ventricular connection",
+  3,
+  3,
+  3
+ ],
+ [
+  58,
+  "Fontan, TCPC, External conduit, Fenestrated",
+  3,
+  3,
+  3
+ ],
+ [
+  59,
+  "Fontan, TCPC, External conduit, Non-fenestrated",
+  3,
+  3,
+  3
+ ],
+ [
+  60,
+  "Fontan, TCPC, Lateral tunnel, Fenestrated",
+  3,
+  3,
+  3
+ ],
+ [
+  61,
+  "Fontan, TCPC, Lateral tunnel, Non-fenestrated",
+  3,
+  3,
+  3
+ ],
+ [
+  62,
+  "Glenn (unidirectional cavopulmonary anastomosis)",
+  2.5,
+  2,
+  2.5
+ ],
+ [
+  63,
+  "Hemifontan",
+  3,
+  2,
+  3
+ ],
+ [
+  64,
+  "HLHS biventricular repair",
+  5,
+  5,
+  5
+ ],
+ [
+  65,
+  "ICD (AICD) implantation",
+  1.5,
+  1,
+  1.5
+ ],
+ [
+  66,
+  "ICD (AICD) procedure",
+  1.5,
+  1,
+  1.5
+ ],
+ [
+  67,
+  "Interrupted aortic arch repair",
+  3.8,
+  3,
+  4
+ ],
+ [
+  68,
+  "Intra-aortic balloon pump (IABP) insertion",
+  0.5,
+  1,
+  0.5
+ ],
+ [
+  69,
+  "Konno procedure",
+  4,
+  3,
+  4
+ ],
+ [
+  70,
+  "Ligation, Pulmonary artery",
+  1.5,
+  2,
+  1.5
+ ],
+ [
+  71,
+  "Ligation, Thoracic duct",
+  1,
+  2,
+  1
+ ],
+ [
+  72,
+  "Lung biopsy",
+  1.5,
+  2,
+  1.5
+ ],
+ [
+  73,
+  "LV to aorta tunnel repair",
+  3,
+  2.3,
+  3
+ ],
+ [
+  74,
   "Mediastinal exploration",
   0.5,
   0.5,
   0.5
  ],
  [
-  145,
+  75,
+  "Mitral stenosis, Supravalvar mitral ring repair",
+  3,
+  2,
+  3
+ ],
+ [
+  76,
+  "Mustard",
+  3,
+  3,
+  3
+ ],
+ [
+  77,
+  "Norwood procedure",
+  5,
+  4.5,
+  5
+ ],
+ [
+  78,
+  "Occlusion MAPCA (s)",
+  2,
+  2,
+  3
+ ],
+ [
+  79,
+  "PA banding (PAB)",
+  2,
+  2,
+  2
+ ],
+ [
+  80,
+  "PA debanding",
+  2,
+  2,
+  2
+ ],
+ [
+  81,
+  "PA reconstruction (plasty), Branch, Central",
+  2.8,
+  2,
+  3
+ ],
+ [
+  82,
+  "PA reconstruction (plasty), Branch, Peripheral",
+  2.8,
+  2,
+  3
+ ],
+ [
+  83,
+  "PA reconstruction (plasty), Main (trunk)",
+  2,
+  2,
+  2
+ ],
+ [
+  84,
+  "Pacemaker implantation, Permanent",
+  1,
+  1,
+  1
+ ],
+ [
+  85,
+  "Pacemaker procedure",
+  1,
+  1,
+  1
+ ],
+ [
+  86,
+  "PAPVC repair",
+  2,
+  1,
+  2
+ ],
+ [
+  87,
+  "PAPVC, Scimitar, Repair",
+  3,
+  2,
+  3
+ ],
+ [
+  88,
+  "Partial left ventriculectomy (LV volume reduction) (Batista)",
+  4,
+  4,
+  4
+ ],
+ [
+  89,
+  "PDA closure, Surgical",
+  1,
+  1,
+  1
+ ],
+ [
+  90,
+  "Pectus repair",
+  2,
+  1,
+  2.3
+ ],
+ [
+  91,
+  "Pericardial drainage procedure",
+  1,
+  1,
+  1
+ ],
+ [
+  92,
+  "Pericardiectomy",
+  2,
+  2,
+  2
+ ],
+ [
+  93,
+  "PFO, Primary closure",
+  1,
+  1,
+  1
+ ],
+ [
+  94,
+  "Pleural drainage procedure",
+  0.5,
+  0.5,
+  0.5
+ ],
+ [
+  95,
+  "Pulmonary artery origin from ascending aorta (hemitruncus) repair",
+  3,
+  3,
+  3
+ ],
+ [
+  96,
+  "Pulmonary artery sling repair",
+  3,
+  3,
+  3
+ ],
+ [
+  97,
+  "Pulmonary atresia—VSD (including TOF, PA) repair",
+  3,
+  3,
+  3
+ ],
+ [
+  98,
+  "Pulmonary atresia—VSD—MAPCA (pseudotruncus) repair",
+  4,
+  3,
+  4
+ ],
+ [
+  99,
+  "Pulmonary embolectomy",
+  3,
+  3,
+  2
+ ],
+ [
+  100,
+  "Pulmonary venous stenosis repair",
+  4,
+  4,
+  4
+ ],
+ [
+  101,
+  "Rastelli",
+  3,
+  3,
+  4
+ ],
+ [
+  102,
+  "REV",
+  4,
+  3,
+  4
+ ],
+ [
+  103,
+  "Right/left heart assist device procedure",
+  2,
+  3,
+  2
+ ],
+ [
+  104,
+  "Ross procedure",
+  4,
+  2.3,
+  4
+ ],
+ [
+  105,
+  "Ross–Konno procedure",
+  4.5,
+  3,
+  5
+ ],
+ [
+  106,
+  "RVOT procedure",
+  2,
+  2,
+  2.5
+ ],
+ [
+  107,
+  "Senning",
+  3,
+  2.5,
+  3
+ ],
+ [
+  108,
+  "Shunt, Ligation and takedown",
+  1.5,
+  1,
+  1
+ ],
+ [
+  109,
+  "Shunt, Systemic to pulmonary, Central (aorta or main PA)",
+  2,
+  2,
+  2.8
+ ],
+ [
+  110,
+  "Shunt, Systemic to pulmonary, Modified Blalock-Taussig (MBTS)",
+  2,
+  2,
+  2.3
+ ],
+ [
+  111,
+  "Sinus of Valsalva, Aneurysm repair",
+  2.5,
+  2,
+  3
+ ],
+ [
+  112,
   "Sternotomy wound drainage",
   0.5,
   0.5,
   0.5
+ ],
+ [
+  113,
+  "Systemic venous stenosis repair",
+  3,
+  2,
+  3
+ ],
+ [
+  114,
+  "TAPVC repair",
+  3,
+  3,
+  3
+ ],
+ [
+  115,
+  "TOF repair, No ventriculotomy",
+  3,
+  2,
+  3
+ ],
+ [
+  116,
+  "TOF repair, RV-PA conduit",
+  3,
+  2,
+  3
+ ],
+ [
+  117,
+  "TOF repair, Ventriculotomy, Non-transanular patch",
+  2.5,
+  2,
+  3
+ ],
+ [
+  118,
+  "TOF repair, Ventriculotomy, Transanular patch",
+  3,
+  2,
+  3
+ ],
+ [
+  119,
+  "TOF—Absent pulmonary valve repair",
+  3,
+  3,
+  3.3
+ ],
+ [
+  120,
+  "TOF—AVC (AVSD) repair",
+  4,
+  3,
+  4
+ ],
+ [
+  121,
+  "Transplant, Heart",
+  3,
+  3.3,
+  3
+ ],
+ [
+  122,
+  "Transplant, Heart and lung(s)",
+  4,
+  5,
+  4.3
+ ],
+ [
+  123,
+  "Transplant, Lung(s)",
+  4,
+  4,
+  4
+ ],
+ [
+  124,
+  "Truncus arteriosus repair",
+  4,
+  3,
+  4
+ ],
+ [
+  125,
+  "Unifocalization MAPCA (s)",
+  4,
+  3,
+  4
+ ],
+ [
+  126,
+  "Valve closure, Tricuspid (exclusion, univentricular)",
+  4,
+  3,
+  2
+ ],
+ [
+  127,
+  "Valve excision, Tricuspid (no replacement)",
+  3,
+  3,
+  1
+ ],
+ [
+  128,
+  "Valve replacement, Aortic (AVR), Bioprosthetic",
+  2,
+  2,
+  3
+ ],
+ [
+  129,
+  "Valve replacement, Aortic (AVR), Homograft",
+  3,
+  2,
+  3.5
+ ],
+ [
+  130,
+  "Valve replacement, Aortic (AVR), Mechanical",
+  2,
+  2,
+  3
+ ],
+ [
+  131,
+  "Valve replacement, Mitral (MVR)",
+  2.5,
+  2,
+  3
+ ],
+ [
+  132,
+  "Valve replacement, Pulmonic (PVR)",
+  2,
+  2,
+  2.5
+ ],
+ [
+  133,
+  "Valve replacement, Tricuspid (TVR)",
+  2.5,
+  2,
+  3
+ ],
+ [
+  134,
+  "Valve replacement, Truncal valve",
+  2,
+  2,
+  2
+ ],
+ [
+  135,
+  "Valvuloplasty, Aortic",
+  3,
+  2,
+  3
+ ],
+ [
+  136,
+  "Valvuloplasty, Mitral",
+  3,
+  2,
+  3
+ ],
+ [
+  137,
+  "Valvuloplasty, Pulmonic",
+  1.8,
+  1.8,
+  2
+ ],
+ [
+  138,
+  "Valvuloplasty, Tricuspid",
+  2,
+  2,
+  3
+ ],
+ [
+  139,
+  "Valvuloplasty, Truncal valve",
+  2,
+  2,
+  3
+ ],
+ [
+  140,
+  "Vascular ring repair",
+  2,
+  2,
+  2
+ ],
+ [
+  141,
+  "Ventricular septal fenestration",
+  3,
+  2,
+  2.5
+ ],
+ [
+  142,
+  "VSD creation/enlargement",
+  3,
+  3,
+  3
+ ],
+ [
+  143,
+  "VSD repair, Patch",
+  2,
+  2,
+  2
+ ],
+ [
+  144,
+  "VSD repair, Primary closure",
+  2,
+  2,
+  2
+ ],
+ [
+  145,
+  "VSD, Multiple, Repair",
+  3,
+  2.5,
+  3.5
  ]
 ]

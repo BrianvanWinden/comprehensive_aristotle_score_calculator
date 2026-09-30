@@ -24,30 +24,37 @@
     "items": [
      {
       "l": "Mechanical cardio-pulmonary support (excl. post-op ECMO)",
+      "def": "Excluding post-operative ECMO",
       "s": 4
      },
      {
       "l": "Shock, persistent (acidosis pH <7.2 and/or lactate >4)",
+      "def": " Metabolic acidosis with pH ,7.2 and/or lactate >4 mmol/l",
       "s": 3
      },
      {
       "l": "Myocardial dysfunction (LVSF <25% / mod–severe RV)",
+      "def": "LVSF ,25%, moderate to severe for RV",
       "s": 2
      },
      {
       "l": "Cardio-pulmonary resuscitation within 48 h",
+      "def": "Chest compression with medications within 48 h prior to surgery",
       "s": 2
      },
      {
       "l": "Shock, resolved at time of surgery",
+      "def": " Metabolic acidosis with pH , 7.2 and/or lactate >4 mmol/l",
       "s": 1
      },
      {
       "l": "Supraventricular tachycardia (>160 bpm)",
+      "def": ">160 ventricular beats/min (JET, AET, IART, WPW)",
       "s": 0.5
      },
      {
       "l": "Ventricular tachycardia",
+      "def": "",
       "s": 0.5
      }
     ]
@@ -61,26 +68,32 @@
      },
      {
       "l": "RSV (same hospital admission)",
+      "def": "***During same hospital admission****",
       "s": 3
      },
      {
       "l": "Elevated lung resistances — biventricular repair >6 Wood",
+      "def": ">6 Wood Units",
       "s": 2
      },
      {
       "l": "Elevated lung resistances — heart transplant >4 Wood",
+      "def": ">4 Wood Units",
       "s": 2
      },
      {
       "l": "Elevated lung resistances — univentricular repair >2 Wood",
+      "def": ">2 Wood Units",
       "s": 2
      },
      {
       "l": "Single lung (only one lung present)",
+      "def": "Only one lung present",
       "s": 3
      },
      {
       "l": "Tracheostomy present",
+      "def": "Tracheostomy present",
       "s": 1
      }
     ]
@@ -90,10 +103,12 @@
     "items": [
      {
       "l": "Septicemia (positive blood culture)",
+      "def": "Positive blood culture",
       "s": 2
      },
      {
       "l": "Endocarditis",
+      "def": "Vegetation or new regurgitation at echocardiography",
       "s": 3
      }
     ]
@@ -103,18 +118,22 @@
     "items": [
      {
       "l": "Necrotizing enterocolitis, treated medically",
+      "def": "***During same hospital admission**** extraluminal air on X-ray",
       "s": 1
      },
      {
       "l": "Necrotizing enterocolitis, treated surgically",
+      "def": "***During same hospital admission**** extraluminal air on X-ray",
       "s": 2
      },
      {
       "l": "Hepatic dysfunction (PT > 2x normal)",
+      "def": "Prothrombin time .2 £ normal",
       "s": 1
      },
      {
       "l": "Enterostomy present",
+      "def": "Enterostomy present includes esophagostomy, gastrostomy, enterostomy, colostomy",
       "s": 0.5
      }
     ]
@@ -124,10 +143,12 @@
     "items": [
      {
       "l": "Coagulation disorder — acquired",
+      "def": "PT/PTT above normal, Thrombopenia ,100,000, Fibrinogen split products positive (.10%)",
       "s": 1
      },
      {
       "l": "Coagulation disorder — congenital",
+      "def": "PT/PTT above normal, Thrombopenia ,100,000, Fibrinogen split products positive (.10%)",
       "s": 0.5
      }
     ]
@@ -137,10 +158,12 @@
     "items": [
      {
       "l": "Renal dysfunction",
+      "def": "Creatinine >1 mg/dl in neonate or Creatinine >2 mg/dl in older child",
       "s": 1
      },
      {
       "l": "Renal failure requiring dialysis",
+      "def": "Renal failure requiring dialysis",
       "s": 3
      }
     ]
@@ -150,18 +173,22 @@
     "items": [
      {
       "l": "Stroke/CVA/intracranial hemorrhage >grade 2, during lifetime",
+      "def": "During lifetime",
       "s": 1
      },
      {
       "l": "Stroke/CVA/intracranial hemorrhage >grade 2, within 48 h",
+      "def": "Within 48 h prior to surgery",
       "s": 2
      },
      {
       "l": "Seizure during lifetime",
+      "def": "During lifetime",
       "s": 0.5
      },
      {
       "l": "Seizure within 48 h prior to surgery",
+      "def": "Within 48 h prior to surgery",
       "s": 1
      }
     ]
@@ -171,6 +198,7 @@
     "items": [
      {
       "l": "Hypothyroidism (TSH >20 mU/l)",
+      "def": "TSH >20 mU/l",
       "s": 1
      },
      {
@@ -398,18 +426,22 @@
    },
    {
     "l": "Minimally invasive sternotomy",
+    "def": "Open heart surgery with skin incision <50% manubrialxyphoid distance",
     "s": 0.5
    },
    {
     "l": "Minimally invasive AL thoracotomy",
+    "def": "Open heart surgery through Antero Lateral thoracotomy",
     "s": 0.5
    },
    {
     "l": "Minimally invasive PL thoracotomy",
+    "def": "Open heart surgery through Postero Lateral thoracotomy",
     "s": 0.5
    },
    {
     "l": "Minimally invasive posterior thoracotomy",
+    "def": "Open heart surgery through Posterior thoracotomy",
     "s": 1
    },
    {
