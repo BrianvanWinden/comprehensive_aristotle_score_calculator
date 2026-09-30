@@ -130,7 +130,7 @@
      },
      {
       "l": "Hepatic dysfunction (PT > 2x normal)",
-      "def": "Prothrombin time .2 £ normal",
+      "def": "Prothrombin time >2x normal",
       "s": 1
      },
      {
@@ -145,12 +145,12 @@
     "items": [
      {
       "l": "Coagulation disorder — acquired",
-      "def": "PT/PTT above normal, Thrombopenia ,100,000, Fibrinogen split products positive (.10%)",
+      "def": "PT/PTT above normal, Thrombopenia ,100,000, Fibrinogen split products positive (>10%)",
       "s": 1
      },
      {
       "l": "Coagulation disorder — congenital",
-      "def": "PT/PTT above normal, Thrombopenia ,100,000, Fibrinogen split products positive (.10%)",
+      "def": "PT/PTT above normal, Thrombopenia ,100,000, Fibrinogen split products positive (>10%)",
       "s": 0.5
      }
     ]
