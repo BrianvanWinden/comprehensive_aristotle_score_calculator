@@ -57,3 +57,9 @@ footer{padding:16px 24px 30px;font-size:12px;color:#5a6b7d;max-width:1200px;marg
 }
 .chip[data-def]:hover::after,
 .chip[data-def]:focus-within::after{opacity:1;visibility:visible;transition-delay:.25s,.25s}
+
+/* ---- "Score may be incomplete" pop-up ---- */
+dialog#incomplete-dlg{border:0;border-radius:12px;padding:22px 24px;max-width:min(440px,90vw);box-shadow:0 12px 40px rgba(15,48,87,.35);color:#1c2733}
+dialog#incomplete-dlg::backdrop{background:rgba(15,48,87,.45)}
+dialog#incomplete-dlg h2{margin:0 0 10px;font-size:18px;color:#0f3057}
+dialog#incomplete-dlg p{margin:0 0 16px}

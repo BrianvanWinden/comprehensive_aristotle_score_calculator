@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Comprehensive Aristotle Score Calculator</title>
-  <link rel="stylesheet" href="style/style_troubleshoot.css">
+  <link rel="stylesheet" href="style/style.css">
   <link rel="stylesheet" href="style/dropdown.css">
   <link rel="shortcut icon" href="documentation/Hartcentrum.svg"/>
 </head>
@@ -33,7 +33,7 @@
       <p class="hint">Tick factor(s) present. Clinical factors apply when present within 48&nbsp;h prior to surgery unless a definition says otherwise. Each factor adds its score directly.</p>
       <div id="b4body"></div>
     </section>
-  
+
   </form>
 
   <aside>
@@ -71,12 +71,6 @@
   <i>European Journal of Cardio-Thoracic Surgery</i> 2004;25(6):911–924. <a href="https://doi.org/10.1016/j.ejcts.2004.03.027">doi:10.1016/j.ejcts.2004.03.027</a>.<br>
   Educational reference tool. Based on a 2004 expert-consensus scoring system whose validation was still underway at publication [see paper §6.2]. Not a substitute for clinical judgement or the official Aristotle Committee materials. -->
 </footer>
-
-<dialog id="incomplete-dlg" aria-labelledby="incomplete-title">
-  <h2 id="incomplete-title">Score may be incomplete</h2>
-  <p>Table&nbsp;B3 only covers a subset of procedures. For the selected procedure, no procedure-specific factors are available in this tool, but additional information may still apply. The score shown <b>may therefore be incomplete</b>.</p>
-  <button type="button" id="incomplete-ok">I understand</button>
-</dialog>
 <script>
 "use strict";
 
@@ -295,9 +289,7 @@ const procDD=Dropdown(document.getElementById("proc-dd"),B2R.map(procLabel),{
   label:"Primary procedure",
   onChange:label=>{
     procNo=label?procByLabel.get(label):null;
-    renderSpecifics();
-    if(procNo!=null&&!B3[procNo])showIncompleteNotice();
-    // the score itself is recomputed by the form's "change" listener below
+    renderSpecifics(); // the score itself is recomputed by the form's "change" listener below
   }
 });
 
@@ -313,12 +305,6 @@ function chipEl(dataAttr,val,label,def,excl){
   lab.appendChild(pts);
   return lab;
 }
-
-/* pop-up shown when the chosen procedure has no Table B3 entry; must be acknowledged */
-const dlg=document.getElementById("incomplete-dlg");
-dlg.addEventListener("cancel",e=>e.preventDefault()); // Esc does not dismiss it
-document.getElementById("incomplete-ok").addEventListener("click",()=>dlg.close());
-function showIncompleteNotice(){ if(!dlg.open)dlg.showModal(); document.getElementById("incomplete-ok").focus(); }
 
 /* render B3 section for the currently chosen primary */
 function renderSpecifics(){
@@ -337,7 +323,7 @@ function renderSpecifics(){
   if(!cfg){ 
     const h=document.createElement("div");
     h.className="hint";
-    h.textContent="No procedure-specific factors are available for this procedure; the score may be incomplete.";
+    h.textContent="This procedure does not require additional procedure-specific information.";
     box.appendChild(h);
     return;
   }
